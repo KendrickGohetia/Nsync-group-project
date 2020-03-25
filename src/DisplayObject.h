@@ -3,26 +3,24 @@
 #define __DISPLAY_OBJECT__
 
 #include "GameObject.h"
-
+#include "Scene.h"
 
 class DisplayObject : public GameObject
 {
 public:
-	DisplayObject() {}
-	virtual ~DisplayObject() {}
+	DisplayObject();
+	virtual ~DisplayObject();
 
 	// Inherited via GameObject
 	virtual void draw() override = 0;
-
 	virtual void update() override = 0;
-
 	virtual void clean() override = 0;
 
-	//Scene* getParent();
-	//void setParent(Scene* parent);
+	Scene* getParent() const;
+	void setParent(Scene* parent);
 
 private:
-	//Scene* m_pParentScene;
+	Scene* m_pParentScene{};
 };
 
 #endif /* defined (__DISPLAY_OBJECT__) */

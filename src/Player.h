@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 #include "SoundManager.h"
+
 class Player : public GameObject {
 public:
 	Player();
@@ -19,9 +20,7 @@ public:
 	// remove anything that needs to be deleted
 	void clean();
 private:
-	char curKey;
-	float curx=560.f;
-	float cury=360.f;
+
 };
 
 

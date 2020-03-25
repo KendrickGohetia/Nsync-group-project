@@ -1,90 +1,113 @@
 #include "GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject():
+	m_position(glm::vec2(0, 0)), m_rotation(glm::vec2(0, 0)), m_scale(glm::vec2(0, 0)), m_velocity(glm::vec2(0, 0)),m_acceleration(glm::vec2(0, 0)),
+	m_width(0), m_height(0), m_currentRow(0), m_currentFrame(0), m_numFrames(0), m_isColliding(false), m_type(GameObjectType::NONE), m_state(SteeringState::NO_STATE)
 {
-	m_position = glm::vec2(0, 0);
-	m_rotation = glm::vec3(0,0,0);
-	m_scale = glm::vec2(1.0f, 1.0f);
-	m_velocity = glm::vec2(0, 0);
-	m_acceleration = glm::vec2(0, 0);
 }
 
 GameObject::~GameObject()
-{
-}
+= default;
 
-
-glm::vec2 GameObject::getPosition()
+glm::vec2 GameObject::getPosition() const
 {
 	return m_position;
 }
 
-glm::vec2 GameObject::getRotation()
+glm::vec2 GameObject::getRotation() const
 {
 	return m_rotation;
 }
 
-glm::vec2 GameObject::getScale()
+glm::vec2 GameObject::getScale() const
 {
 	return m_scale;
 }
 
-glm::vec2 GameObject::getVelocity()
+glm::vec2 GameObject::getVelocity() const
 {
 	return m_velocity;
 }
 
-glm::vec2 GameObject::getAcceleration()
+glm::vec2 GameObject::getAcceleration() const
 {
 	return m_acceleration;
 }
 
-int GameObject::getWidth()
+int GameObject::getWidth() const
 {
 	return m_width;
 }
 
-int GameObject::getHeight()
+int GameObject::getHeight() const
 {
 	return m_height;
 }
 
-bool GameObject::getIsColliding()
+bool GameObject::getIsColliding() const
 {
 	return m_isColliding;
 }
 
-GameObjectType GameObject::getType()
+GameObjectType GameObject::getType() const
 {
 	return m_type;
 }
 
-void GameObject::setPosition(glm::vec2 newPosition)
+SteeringState GameObject::getState() const
 {
-	m_position = newPosition;
+	return m_state;
 }
 
-void GameObject::setWidth(int newWidth)
+
+void GameObject::setPosition(const glm::vec2 new_position)
 {
-	m_width = newWidth;
+	m_position = new_position;
 }
 
-void GameObject::setHeight(int newHeight)
+void GameObject::setPosition(const float x, const float y)
 {
-	m_height = newHeight;
+	m_position.x = x;
+	m_position.y = y;
 }
 
-void GameObject::setVelocity(glm::vec2 newVelocity)
+void GameObject::setWidth(const int new_width)
 {
-	m_velocity = newVelocity;
+	m_width = new_width;
 }
 
-void GameObject::setIsColliding(bool collision)
+void GameObject::setHeight(const int new_height)
+{
+	m_height = new_height;
+}
+
+void GameObject::setVelocity(const glm::vec2 new_velocity)
+{
+	m_velocity = new_velocity;
+}
+
+void GameObject::setVelocity(const float x, const float y)
+{
+	m_velocity.x = x;
+	m_velocity.y = y;
+}
+
+void GameObject::setIsColliding(const bool collision)
 {
 	m_isColliding = collision;
 }
 
-void GameObject::setType(GameObjectType newType)
+void GameObject::setType(const GameObjectType new_type)
 {
-	m_type = newType;
+	m_type = new_type;
+}
+
+void GameObject::setState(const SteeringState new_state)
+{
+	m_state = new_state;
+}
+
+void GameObject::setAcceleration(const glm::vec2 new_acceleration)
+{
+	m_acceleration = new_acceleration;
 }

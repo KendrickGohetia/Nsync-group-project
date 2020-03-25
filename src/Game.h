@@ -1,30 +1,36 @@
 #pragma once
-#ifndef __Game__
-#define __Game__
+#ifndef __GAME__
+#define __GAME__
 
 // Core Libraries
 #include <iostream>
+#include <string>
 #include <vector>
+#include "SceneState.h"
 
 #include <SDL.h>
-#include <SDL_image.h>
+
+// IMGUI Includes
+#include "IMGUI/imgui.h"
 
 // Game Managers
-#include "TextureManager.h"
 #include "CollisionManager.h"
 
-// Game Objects
-#include "Player.h"
-#include "Enemy.h"
-#include "Key.h"
+// Scenes
+#include "StartScene.h"
+#include "Level1Scene.h"
+#include "PlayScene.h"
+#include "EndScene.h"
+
+#include "Config.h"
+
 class Game
 {
 public:
 	
-
 	static Game* Instance()
 	{
-		if (s_pInstance == 0)
+		if (s_pInstance == nullptr)
 		{
 			s_pInstance = new Game();
 			return s_pInstance;
@@ -36,52 +42,53 @@ public:
 	// simply set the running variable to true
 	void init() { m_bRunning = true; }
 
-	bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+	bool init(const char* title, int x, int y, int width, int height, bool fullscreen);
 
 	// public functions
-	void render();
-	void update();
+	void render() const;
+	void update() const;
 	void handleEvents();
-	void clean();
+	void clean() const;
+
 	// a function to access the private running variable
 	bool running() { return m_bRunning; }
-	
 
 	// getters
-	SDL_Renderer* getRenderer();
-	char getPlayerPosition();
+	SDL_Renderer* getRenderer() const;
+	glm::vec2 getMousePosition() const;
+
+	void setFrames(Uint32 frames);
+	Uint32 getFrames() const;
+
+	void changeSceneState(SceneState new_state);
+	void quit();
+
 	
 private:
 	Game();
 	~Game();
 
-	SDL_Window* m_pWindow;
-	SDL_Renderer* m_pRenderer;
+	std::shared_ptr<SDL_Window> m_pWindow;
+
+	std::shared_ptr<SDL_Renderer> m_pRenderer;
 
 	int m_currentFrame;
 
 	bool m_bRunning;
 
 	static Game* s_pInstance;
+	
+	void start();
 
-	// GameObjects
-	Player* m_pPlayer;
-	Enemy* m_pEnemyv;
-	Key* m_pKey;
-	// cloud game objects
-	int m_cloudNum = 3;
-	//std::vector<Cloud*> m_pClouds;
+	glm::vec2 m_mousePosition;
 
-	void createGameObjects();
+	Uint32 m_frames;
 
-	
-	
-	char curKey;
-	
-	
+	Scene* m_currentScene;
+	SceneState m_currentSceneState;
 };
 
 typedef Game TheGame;
 
-#endif /* defined (__Game__) */
+#endif /* defined (__GAME__) */
 
