@@ -6,6 +6,7 @@ enum GameObjectType {
 	SHIP,
 	TARGET,
 	PLANET,
+	PLAYER,
 	MINE,
 	TILE,
 	NUM_OF_TYPES

@@ -57,6 +57,8 @@ public:
 	SDL_Renderer* getRenderer() const;
 	glm::vec2 getMousePosition() const;
 
+	char getPlayerPosition();
+
 	void setFrames(Uint32 frames);
 	Uint32 getFrames() const;
 
@@ -86,6 +88,8 @@ private:
 
 	Scene* m_currentScene;
 	SceneState m_currentSceneState;
+
+	char currKey;
 };
 
 typedef Game TheGame;

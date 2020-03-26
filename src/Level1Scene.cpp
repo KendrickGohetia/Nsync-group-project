@@ -69,7 +69,7 @@ void Level1Scene::handleEvents()
 				if (keyPressed == SDLK_a)
 				{
 					std::cout << "move left" << std::endl;
-					m_pShip->turnLeft();
+					m_pShip->moveLeft();
 				}
 
 				if (keyPressed == SDLK_s)
@@ -81,7 +81,7 @@ void Level1Scene::handleEvents()
 				if (keyPressed == SDLK_d)
 				{
 					std::cout << "move right" << std::endl;
-					m_pShip->turnRight();
+					m_pShip->moveRight();
 				}
 			}
 			
@@ -93,6 +93,6 @@ void Level1Scene::handleEvents()
 void Level1Scene::start()
 {
 	m_pShip = new Ship();
-	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.5);
+	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);
 }

@@ -8,6 +8,11 @@
 
 Game* Game::s_pInstance = nullptr;
 
+char Game::getPlayerPosition()
+{
+	return currKey;
+}
+
 // Game functions - DO NOT REMOVE ***********************************************
 
 Game::Game() :

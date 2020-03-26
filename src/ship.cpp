@@ -7,13 +7,13 @@
 
 Ship::Ship() : m_maxSpeed(10.0f)
 {
-	TheTextureManager::Instance()->load("../Assets/textures/ship3.png",
+	TheTextureManager::Instance()->load("../Assets/textures/plane.png",
 		"ship", TheGame::Instance()->getRenderer());
 
 	auto size = TheTextureManager::Instance()->getTextureSize("ship");
 	setWidth(size.x);
 	setHeight(size.y);
-	setPosition(glm::vec2(400.0f, 300.0f));
+	setPosition(glm::vec2(400.0f, 550.0f));
 	setVelocity(glm::vec2(0.0f, 0.0f));
 	setAcceleration(glm::vec2(0.0f, 0.0f));
 	setIsColliding(false);
@@ -49,35 +49,37 @@ void Ship::clean()
 {
 }
 
-void Ship::turnRight()
-{
-	m_currentHeading += m_turnRate;
-	if (m_currentHeading >= 360) 
-	{
-		m_currentHeading -= 360.0f;
-	}
-	m_changeDirection();
-}
-
-void Ship::turnLeft()
-{
-	m_currentHeading -= m_turnRate;
-	if (m_currentHeading < 0)
-	{
-		m_currentHeading += 360.0f;
-	}
-
-	m_changeDirection();
-}
 
 void Ship::moveForward()
 {
-	setVelocity(m_currentDirection * m_maxSpeed);
+	if (getPosition().y > Config::SCREEN_HEIGHT * 0.05f)
+	{
+		setPosition(glm::vec2(getPosition().x, getPosition().y - m_maxSpeed));
+	}
 }
 
 void Ship::moveBack()
 {
-	setVelocity(m_currentDirection * -m_maxSpeed);
+	if (getPosition().y < Config::SCREEN_HEIGHT * 0.95f)
+	{
+		setPosition(glm::vec2(getPosition().x, getPosition().y + m_maxSpeed));
+	}
+}
+
+void Ship::moveLeft()
+{
+	if (getPosition().x > Config::SCREEN_WIDTH * 0.05f)
+	{
+		setPosition(glm::vec2(getPosition().x - m_maxSpeed, getPosition().y));
+	}
+}
+
+void Ship::moveRight()
+{
+	if (getPosition().x < Config::SCREEN_WIDTH * 0.95f)
+	{
+		setPosition(glm::vec2(getPosition().x + m_maxSpeed, getPosition().y));
+	}
 }
 
 void Ship::move()

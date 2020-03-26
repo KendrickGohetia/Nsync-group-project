@@ -20,6 +20,8 @@ public:
 	void turnLeft();
 	void moveForward();
 	void moveBack();
+	void moveLeft();
+	void moveRight();
 	
 	void move();
 
@@ -30,6 +32,10 @@ private:
 	// steering behaviours
 	float m_maxSpeed;
 	float m_turnRate;
+
+	float m_playerMoveSpeed;
+	float m_currX;
+	float m_currY;
 
 	void m_changeDirection();
 	float m_currentHeading;
