@@ -11,6 +11,7 @@ Level1Scene::~Level1Scene()
 
 void Level1Scene::draw()
 {
+	m_background.draw();
 	drawDisplayList();
 }
 
@@ -83,6 +84,12 @@ void Level1Scene::handleEvents()
 					std::cout << "move right" << std::endl;
 					m_pShip->moveRight();
 				}
+
+				if (keyPressed == SDLK_SPACE)
+				{
+					std::cout << "fire weapon" << std::endl;
+					m_pShip->moveRight();
+				}
 			}
 			
 			break;
@@ -92,6 +99,8 @@ void Level1Scene::handleEvents()
 
 void Level1Scene::start()
 {
+	m_background = Background();
+
 	m_pShip = new Ship();
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);

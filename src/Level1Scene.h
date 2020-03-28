@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "ship.h"
+#include "Background.h"
 
 class Level1Scene : public Scene
 {
@@ -20,6 +21,7 @@ public:
 private:
 	glm::vec2 m_mousePosition;
 
+	Background m_background;
 	Ship* m_pShip;
 };
 
