@@ -1,5 +1,10 @@
 #include "Level1Scene.h"
 #include "Game.h"
+#include <chrono>
+#include <thread>
+
+using namespace std::this_thread;     // sleep_for, sleep_until
+using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 
 Level1Scene::Level1Scene()
 {
@@ -46,8 +51,9 @@ void Level1Scene::handleEvents()
 			wheel = event.wheel.y;
 			break;
 		case SDL_KEYDOWN:
-			const auto keyPressed = event.key.keysym.sym;
-			switch (keyPressed)
+			//const auto keyPressed = event.key.keysym.sym;
+			//switch (keyPressed)
+			switch (event.key.keysym.sym)
 			{
 			case SDLK_ESCAPE:
 				TheGame::Instance()->quit();
@@ -58,45 +64,56 @@ void Level1Scene::handleEvents()
 			case SDLK_2:
 				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
 				break;
-			}
-			// movement keys
-			{
-				if(keyPressed == SDLK_w)
-				{
-					std::cout << "move forward" << std::endl;
-					m_pShip->moveForward();
-				}
-
-				if (keyPressed == SDLK_a)
-				{
-					std::cout << "move left" << std::endl;
-					m_pShip->moveLeft();
-				}
-
-				if (keyPressed == SDLK_s)
-				{
-					std::cout << "move back" << std::endl;
-					m_pShip->moveBack();
-				}
-
-				if (keyPressed == SDLK_d)
-				{
-					std::cout << "move right" << std::endl;
-					m_pShip->moveRight();
-				}
-
-				if (keyPressed == SDLK_SPACE)
-				{
-					std::cout << "fire weapon" << std::endl;
-					//m_pBullet1->draw();
-					m_pBullet1 = new Bullet1();
-					m_pBullet1->setPosition(m_pShip->getShipPosition().x * 0.94f, m_pShip->getShipPosition().y * 0.90f);
-					addChild(m_pBullet1);
-				}
+			case SDLK_w:
+				std::cout << "move forward" << std::endl;
+				m_pShip->moveForward();
+				break;
+			case SDLK_a:
+				std::cout << "move left" << std::endl;
+				m_pShip->moveLeft();
+				break;
+			case SDLK_s:
+				std::cout << "move back" << std::endl;
+				m_pShip->moveBack();
+				break;
+			case SDLK_d:
+				std::cout << "move right" << std::endl;
+				m_pShip->moveRight();
+				break;
+			case SDLK_SPACE:
+				std::cout << "fire weapon" << std::endl;
+				m_pBullet1 = new Bullet1();
+				m_pBullet1->setPosition(m_pShip->getShipPosition().x * 0.94f, m_pShip->getShipPosition().y * 0.90f);
+				addChild(m_pBullet1);
+				break;
 			}
 			
 			break;
+
+		case SDL_KEYUP:
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_w:
+				m_pShip->setVelocity(glm::vec2(m_pShip->getVelocity().x, 0));
+
+				break;
+			case SDLK_s:
+				m_pShip->setVelocity(glm::vec2(m_pShip->getVelocity().x, 0));
+
+				break;
+			case SDLK_a:
+				m_pShip->setVelocity(glm::vec2(0, m_pShip->getVelocity().y));
+
+				break;
+			case SDLK_d:
+				m_pShip->setVelocity(glm::vec2(0, m_pShip->getVelocity().y));
+
+				break;
+			}
+
+			break;
 		}
+
 	}
 }
 

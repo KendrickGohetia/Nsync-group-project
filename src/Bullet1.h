@@ -3,7 +3,6 @@
 #define __BULLET_1__
 #include "DisplayObject.h"
 #include <sstream>
-#include "ship.h"
 
 class Bullet1 : public DisplayObject
 {

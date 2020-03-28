@@ -5,7 +5,7 @@
 #include "glm/gtx/string_cast.hpp"
 
 
-Ship::Ship() : m_maxSpeed(5.0f)
+Ship::Ship() : m_maxSpeed(8.0f)
 {
 	TheTextureManager::Instance()->load("../Assets/textures/Player.png",
 		"ship", TheGame::Instance()->getRenderer());
@@ -42,7 +42,6 @@ void Ship::draw()
 void Ship::update()
 {
 	move();
-	//m_checkBounds();
 }
 
 void Ship::clean()
@@ -52,44 +51,26 @@ void Ship::clean()
 
 void Ship::moveForward()
 {
-	if ((getPosition().y + getVelocity().y) > Config::SCREEN_HEIGHT * 0.05f)
-	{
-		/*setPosition(glm::vec2(getPosition().x, getPosition().y - m_maxSpeed));*/
-		setVelocity(glm::vec2(getVelocity().x, getVelocity().y - m_maxSpeed));
-		/*setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y + getVelocity().y));*/
-	}
+	setVelocity(glm::vec2(getVelocity().x, getVelocity().y - m_maxSpeed));
 }
 
 void Ship::moveBack()
 {
-	if ((getPosition().y + getVelocity().y) < Config::SCREEN_HEIGHT * 0.95f)
-	{
-		//setPosition(glm::vec2(getPosition().x, getPosition().y + m_maxSpeed));
-		setVelocity(glm::vec2(getVelocity().x, getVelocity().y + m_maxSpeed));
-		/*setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y - getVelocity().y));*/
-	}
+	setVelocity(glm::vec2(getVelocity().x, getVelocity().y + m_maxSpeed));
 }
 
 void Ship::moveLeft()
 {
-	if (getPosition().x > Config::SCREEN_WIDTH * 0.05f)
-	{
-		setPosition(glm::vec2(getPosition().x - m_maxSpeed, getPosition().y));
-	}
+	setVelocity(glm::vec2(getVelocity().x - m_maxSpeed, getVelocity().y));
 }
 
 void Ship::moveRight()
 {
-	if (getPosition().x < Config::SCREEN_WIDTH * 0.95f)
-	{
-		setPosition(glm::vec2(getPosition().x + m_maxSpeed, getPosition().y));
-	}
+	setVelocity(glm::vec2(getVelocity().x + m_maxSpeed, getVelocity().y));
 }
 
 void Ship::move()
 {
-	//setPosition(getPosition() + getVelocity());
-	//setVelocity(getVelocity() * 0.9f);
 	if (getVelocity().x > 0.0f && getVelocity().x - getPosition().x < m_maxSpeed)
 	{
 		setVelocity(glm::vec2(m_maxSpeed, getVelocity().y));
@@ -104,48 +85,27 @@ void Ship::move()
 	{
 		setVelocity(glm::vec2(getVelocity().x, m_maxSpeed));
 	}
-	/*else 
-	{
-		setVelocity(glm::vec2(getVelocity().x, 0.0f));
-	}*/
 
 	if (getVelocity().y < 0.0f && getPosition().y - getVelocity().y > m_maxSpeed)
 	{
 		setVelocity(glm::vec2(getVelocity().x, -m_maxSpeed));
 	}
-	/*else
+
+	if (((getPosition().x + getVelocity().x) > Config::SCREEN_WIDTH * 0.95f) || ((getPosition().x + getVelocity().x) < Config::SCREEN_WIDTH * 0.05))
+	{
+		setVelocity(glm::vec2(0.0f, getVelocity().y));
+	}
+
+	if (((getPosition().y + getVelocity().y) > Config::SCREEN_HEIGHT * 0.95f) || ((getPosition().y + getVelocity().y) < Config::SCREEN_HEIGHT * 0.05f))
 	{
 		setVelocity(glm::vec2(getVelocity().x, 0.0f));
-	}*/
+	}
 
 	setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y + getVelocity().y));
 
-}
+	std::cout << "getPositionY: " << getPosition().y << std::endl;
 
-
-
-void Ship::m_checkBounds()
-{
-
-	if (getPosition().x > Config::SCREEN_WIDTH)
-	{
-		setPosition(glm::vec2(0.0f, getPosition().y));
-	}
-
-	if (getPosition().x < 0)
-	{
-		setPosition(glm::vec2(800.0f, getPosition().y));
-	}
-
-	if (getPosition().y > Config::SCREEN_HEIGHT)
-	{
-		setPosition(glm::vec2(getPosition().x, 0.0f));
-	}
-
-	if (getPosition().y < 0)
-	{
-		setPosition(glm::vec2(getPosition().x, 600.0f));
-	}
+	std::cout << "Velocity: " << getVelocity().y << std::endl;
 
 }
 
