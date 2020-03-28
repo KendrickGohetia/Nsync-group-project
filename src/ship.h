@@ -16,8 +16,7 @@ public:
 	void update() override;
 	void clean() override;
 
-	void turnRight();
-	void turnLeft();
+	glm::vec2 getShipPosition();
 	void moveForward();
 	void moveBack();
 	void moveLeft();

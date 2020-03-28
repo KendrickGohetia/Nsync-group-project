@@ -5,7 +5,7 @@
 #include "glm/gtx/string_cast.hpp"
 
 
-Ship::Ship() : m_maxSpeed(10.0f)
+Ship::Ship() : m_maxSpeed(5.0f)
 {
 	TheTextureManager::Instance()->load("../Assets/textures/Player.png",
 		"ship", TheGame::Instance()->getRenderer());
@@ -42,7 +42,7 @@ void Ship::draw()
 void Ship::update()
 {
 	move();
-	m_checkBounds();
+	//m_checkBounds();
 }
 
 void Ship::clean()
@@ -52,17 +52,21 @@ void Ship::clean()
 
 void Ship::moveForward()
 {
-	if (getPosition().y > Config::SCREEN_HEIGHT * 0.05f)
+	if ((getPosition().y + getVelocity().y) > Config::SCREEN_HEIGHT * 0.05f)
 	{
-		setPosition(glm::vec2(getPosition().x, getPosition().y - m_maxSpeed));
+		/*setPosition(glm::vec2(getPosition().x, getPosition().y - m_maxSpeed));*/
+		setVelocity(glm::vec2(getVelocity().x, getVelocity().y - m_maxSpeed));
+		/*setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y + getVelocity().y));*/
 	}
 }
 
 void Ship::moveBack()
 {
-	if (getPosition().y < Config::SCREEN_HEIGHT * 0.95f)
+	if ((getPosition().y + getVelocity().y) < Config::SCREEN_HEIGHT * 0.95f)
 	{
-		setPosition(glm::vec2(getPosition().x, getPosition().y + m_maxSpeed));
+		//setPosition(glm::vec2(getPosition().x, getPosition().y + m_maxSpeed));
+		setVelocity(glm::vec2(getVelocity().x, getVelocity().y + m_maxSpeed));
+		/*setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y - getVelocity().y));*/
 	}
 }
 
@@ -84,8 +88,37 @@ void Ship::moveRight()
 
 void Ship::move()
 {
-	setPosition(getPosition() + getVelocity());
-	setVelocity(getVelocity() * 0.9f);
+	//setPosition(getPosition() + getVelocity());
+	//setVelocity(getVelocity() * 0.9f);
+	if (getVelocity().x > 0.0f && getVelocity().x - getPosition().x < m_maxSpeed)
+	{
+		setVelocity(glm::vec2(m_maxSpeed, getVelocity().y));
+	}
+
+	if (getVelocity().x < 0.0f && getPosition().x - getVelocity().x > m_maxSpeed)
+	{
+		setVelocity(glm::vec2(-m_maxSpeed, getVelocity().y));
+	}
+
+	if (getVelocity().y > 0.0f && getVelocity().y - getPosition().y < m_maxSpeed)
+	{
+		setVelocity(glm::vec2(getVelocity().x, m_maxSpeed));
+	}
+	/*else 
+	{
+		setVelocity(glm::vec2(getVelocity().x, 0.0f));
+	}*/
+
+	if (getVelocity().y < 0.0f && getPosition().y - getVelocity().y > m_maxSpeed)
+	{
+		setVelocity(glm::vec2(getVelocity().x, -m_maxSpeed));
+	}
+	/*else
+	{
+		setVelocity(glm::vec2(getVelocity().x, 0.0f));
+	}*/
+
+	setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y + getVelocity().y));
 
 }
 
@@ -132,5 +165,10 @@ void Ship::m_changeDirection()
 	m_currentDirection = glm::vec2(x, y);
 
 	glm::vec2 size = TheTextureManager::Instance()->getTextureSize("ship");
+}
+
+glm::vec2 Ship::getShipPosition()
+{
+	return getPosition();
 }
 

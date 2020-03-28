@@ -88,7 +88,10 @@ void Level1Scene::handleEvents()
 				if (keyPressed == SDLK_SPACE)
 				{
 					std::cout << "fire weapon" << std::endl;
-					m_pShip->moveRight();
+					//m_pBullet1->draw();
+					m_pBullet1 = new Bullet1();
+					m_pBullet1->setPosition(m_pShip->getShipPosition().x * 0.94f, m_pShip->getShipPosition().y * 0.90f);
+					addChild(m_pBullet1);
 				}
 			}
 			
@@ -104,4 +107,8 @@ void Level1Scene::start()
 	m_pShip = new Ship();
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);
+
+	/*m_pBullet1 = new Bullet1();
+	m_pBullet1->setPosition(m_pShip->getShipPosition().x, m_pShip->getShipPosition().y);
+	addChild(m_pBullet1);*/
 }

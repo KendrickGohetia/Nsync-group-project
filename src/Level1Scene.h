@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "ship.h"
 #include "Background.h"
+#include "Bullet1.h"
 
 class Level1Scene : public Scene
 {
@@ -22,6 +23,7 @@ private:
 	glm::vec2 m_mousePosition;
 
 	Background m_background;
+	Bullet1* m_pBullet1;
 	Ship* m_pShip;
 };
 
