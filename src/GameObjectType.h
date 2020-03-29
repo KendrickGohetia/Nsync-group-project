@@ -6,6 +6,7 @@ enum GameObjectType {
 	SHIP,
 	BACKGROUND,
 	BULLET1,
+	ENEMY1,
 	TARGET,
 	PLANET,
 	PLAYER,

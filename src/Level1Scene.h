@@ -6,6 +6,7 @@
 #include "ship.h"
 #include "Background.h"
 #include "Bullet1.h"
+#include "Enemy1.h"
 
 class Level1Scene : public Scene
 {
@@ -24,7 +25,13 @@ private:
 
 	Background m_background;
 	Bullet1* m_pBullet1;
+	Enemy1* m_pEnemy1;
 	Ship* m_pShip;
+
+	/*std::vector<Enemy1*> m_pEnemy1;*/
+
+	int r1, x;
+	float enemyDist, enemyProximity;
 };
 
 #endif /* defined (__LEVEL1_SCENE__) */

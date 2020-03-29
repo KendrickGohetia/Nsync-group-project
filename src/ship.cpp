@@ -103,9 +103,9 @@ void Ship::move()
 
 	setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y + getVelocity().y));
 
-	std::cout << "getPositionY: " << getPosition().y << std::endl;
+	/*std::cout << "getPositionY: " << getPosition().y << std::endl;
 
-	std::cout << "Velocity: " << getVelocity().y << std::endl;
+	std::cout << "Velocity: " << getVelocity().y << std::endl;*/
 
 }
 
