@@ -41,13 +41,6 @@ void Level1Scene::update()
 	{
 		spawnEnemies();
 	}
-
-	/*if (enemyNum > 0)
-	{
-		enemyOutOfBounds();
-	}*/
-
-	//m_pEnemy1->setPosition(m_pShip->getPosition().x, 0 - enemyDist);
 }
 
 void Level1Scene::clean()
@@ -76,8 +69,6 @@ void Level1Scene::handleEvents()
 			wheel = event.wheel.y;
 			break;
 		case SDL_KEYDOWN:
-			//const auto keyPressed = event.key.keysym.sym;
-			//switch (keyPressed)
 			switch (event.key.keysym.sym)
 			{
 			case SDLK_ESCAPE:
@@ -158,7 +149,6 @@ void Level1Scene::spawnEnemies()
 	rand1 = rand() % 100 + 1;
 	rand2 = rand() % 550 + 1;
 
-	//if ((rand1 < 8) && (enemyNum < 10) && (rand2 >= 10))
 	if ((rand1 < 8) && (rand2 >= 50) && (enemyNum < 20))
 	{
 		enemyProximity = enemyProximity + 50;
@@ -175,8 +165,8 @@ void Level1Scene::spawnEnemies()
 			stopSpawning = true;
 		}
 
-		std::cout << "rand1: " << rand1 << std::endl;
-		std::cout << "rand2: " << rand2 << std::endl;
+		/*std::cout << "rand1: " << rand1 << std::endl;
+		std::cout << "rand2: " << rand2 << std::endl;*/
 	}
 }
 

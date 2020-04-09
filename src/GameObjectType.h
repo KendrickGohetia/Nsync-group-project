@@ -8,6 +8,7 @@ enum GameObjectType {
 	BULLET1,
 	ENEMY1,
 	TARGET,
+	OBSTACLE,
 	PLANET,
 	PLAYER,
 	MINE,
