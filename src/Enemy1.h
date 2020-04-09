@@ -3,6 +3,7 @@
 #define __ENEMY_1__
 #include "DisplayObject.h"
 #include <sstream>
+#include "ship.h"
 
 class Enemy1 : public DisplayObject
 {

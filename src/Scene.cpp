@@ -15,6 +15,18 @@ void Scene::addChild(DisplayObject * child)
 	m_displayList.push_back(child);
 }
 
+void Scene::removeChild(DisplayObject* child)
+{
+	for (itr1 = m_displayList.rbegin(); itr1 < m_displayList.rend(); itr1++)
+	{
+		if (*itr1 == child)
+		{
+			m_displayList.erase((itr1 + 1).base());
+			return;
+		}
+	}
+}
+
 void Scene::removeAllChildren()
 {
 	for(auto child : m_displayList)

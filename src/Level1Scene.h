@@ -20,19 +20,24 @@ public:
 	virtual void clean() override;
 	virtual void handleEvents() override;
 	virtual void start() override;
+	
+	void spawnEnemies();
+	void enemyOutOfBounds();
+	void respawn();
+	
 private:
 	glm::vec2 m_mousePosition;
 
 	Background m_background;
 	Bullet1* m_pBullet1;
-	Enemy1* m_pEnemy1;
+	//Enemy1* m_pEnemy1;
 	Ship* m_pShip;
 
-	/*std::vector<Enemy1*> m_pEnemy1;*/
+	std::vector<Enemy1*> m_pEnemy1;
 
-	int r1, x;
+	int rand1, rand2, enemyNum;
 	float enemyDist, enemyProximity;
-	bool isFired;
+	bool isFired, isEnemySpawned, stopSpawning;
 };
 
 #endif /* defined (__LEVEL1_SCENE__) */

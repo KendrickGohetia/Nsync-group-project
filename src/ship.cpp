@@ -7,7 +7,7 @@
 
 Ship::Ship() : m_maxSpeed(8.0f)
 {
-	TheTextureManager::Instance()->load("../Assets/textures/Player.png",
+	TheTextureManager::Instance()->load("../Assets/textures/Spaceship3.png",
 		"ship", TheGame::Instance()->getRenderer());
 
 	auto size = TheTextureManager::Instance()->getTextureSize("ship");

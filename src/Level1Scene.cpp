@@ -19,9 +19,12 @@ void Level1Scene::draw()
 	m_background.draw();
 	drawDisplayList();
 
-	/*for (Enemy1* enemy1 : m_pEnemy1) {
-
-		enemy1->draw();
+	/*if (isEnemySpawned)
+	{
+		for (Enemy1* enemy1 : m_pEnemy1)
+		{
+			enemy1->draw();
+		}
 	}*/
 }
 
@@ -29,22 +32,20 @@ void Level1Scene::update()
 {
 	updateDisplayList();
 
-	r1 = rand() % 100 + 1;
-
-	if (r1 == 10 && x < 10)
+	if (enemyNum > 0)
 	{
-		enemyProximity = enemyProximity + 50;
-		enemyDist = enemyDist + 100;
-		x = x + 1;
-		m_pEnemy1 = new Enemy1();
-		/*m_pEnemy1->setPosition(Config::SCREEN_WIDTH + 100 + enemyProximity, 0 - enemyDist);*/
-		m_pEnemy1->setPosition(m_pShip->getPosition().x, 0 - enemyDist);
-		addChild(m_pEnemy1);
-
-		std::cout << "EnemyNum: " << x << std::endl;
-		std::cout << "R1: " << r1 << std::endl;
-		std::cout << "ShipPosX: " << m_pShip->getPosition().x << std::endl;
+		enemyOutOfBounds();
 	}
+
+	if (!stopSpawning)
+	{
+		spawnEnemies();
+	}
+
+	/*if (enemyNum > 0)
+	{
+		enemyOutOfBounds();
+	}*/
 
 	//m_pEnemy1->setPosition(m_pShip->getPosition().x, 0 - enemyDist);
 }
@@ -109,7 +110,7 @@ void Level1Scene::handleEvents()
 				if (!isFired)
 				{
 					m_pBullet1 = new Bullet1();
-					m_pBullet1->setPosition(m_pShip->getShipPosition().x * 0.94f, m_pShip->getShipPosition().y * 0.90f);
+					m_pBullet1->setPosition(m_pShip->getPosition().x * 0.94f, m_pShip->getPosition().y * 0.90f);
 					addChild(m_pBullet1);
 
 					isFired = true;
@@ -152,6 +153,59 @@ void Level1Scene::handleEvents()
 	}
 }
 
+void Level1Scene::spawnEnemies()
+{
+	rand1 = rand() % 100 + 1;
+	rand2 = rand() % 550 + 1;
+
+	//if ((rand1 < 8) && (enemyNum < 10) && (rand2 >= 10))
+	if ((rand1 < 8) && (rand2 >= 50) && (enemyNum < 20))
+	{
+		enemyProximity = enemyProximity + 50;
+		enemyDist = enemyDist + 200;
+
+		m_pEnemy1.push_back(new Enemy1());
+		m_pEnemy1[enemyNum]->setPosition(rand2, 0 - enemyDist);
+		addChild(m_pEnemy1[enemyNum]);
+		enemyNum = enemyNum + 1;
+		isEnemySpawned = true;
+
+		if (enemyNum == 20)
+		{
+			stopSpawning = true;
+		}
+
+		std::cout << "rand1: " << rand1 << std::endl;
+		std::cout << "rand2: " << rand2 << std::endl;
+	}
+}
+
+void Level1Scene::enemyOutOfBounds()
+{
+	
+	for (int x = 0; x < enemyNum; x++)
+	{
+		if (m_pEnemy1[x]->getPosition().y > Config::SCREEN_HEIGHT * 1.05f)
+		{
+			removeChild(m_pEnemy1[x]);
+			if (x == 19)
+			{
+				respawn();
+			}
+		}
+	}
+	
+}
+
+void Level1Scene::respawn()
+{
+	enemyNum = 0;
+	enemyProximity = 0;
+	enemyDist = 0;
+	stopSpawning = false;
+}
+
+
 void Level1Scene::start()
 {
 	m_background = Background();
@@ -159,40 +213,4 @@ void Level1Scene::start()
 	m_pShip = new Ship();
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);
-
-	/*for (size_t i = 0; i < 10; i++)
-	{
-		m_pEnemy1.push_back(new Enemy1());
-
-	}
-
-	m_pEnemy1[0]->setPosition(glm::vec2(50, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[1]->setPosition(glm::vec2(100, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[2]->setPosition(glm::vec2(150, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[3]->setPosition(glm::vec2(200, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[4]->setPosition(glm::vec2(250, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[5]->setPosition(glm::vec2(300, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[6]->setPosition(glm::vec2(350, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[7]->setPosition(glm::vec2(400, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[8]->setPosition(glm::vec2(450, Config::SCREEN_HEIGHT * 0.1));
-	m_pEnemy1[9]->setPosition(glm::vec2(500, Config::SCREEN_HEIGHT * 0.1));
-
-	float enemyDist = 100.0f;
-	float enemyProximity = 50.0f;*/
-
-	/*for (int x = 0; x < 10; x++)
-	{
-		m_pEnemy1 = new Enemy1();
-		m_pEnemy1->setPosition(Config::SCREEN_WIDTH * 0.1 + enemyProximity, Config::SCREEN_HEIGHT * 0.1 - enemyDist);
-		addChild(m_pEnemy1);
-
-		std::cout << "EnemyNum: " << x << std::endl;
-		std::cout << "EnemyX: " << m_pEnemy1->getPosition().x << std::endl;
-		std::cout << "EnemyY: " << m_pEnemy1->getPosition().y << std::endl;
-		std::cout << "EnemyDist: " << enemyDist << std::endl;
-		std::cout << "EnemyProximity: " << enemyProximity << std::endl;
-
-		enemyDist = enemyDist + 100.0f;
-		enemyProximity = enemyProximity + 50.0f;
-	}*/
 }

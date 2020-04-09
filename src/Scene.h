@@ -21,6 +21,7 @@ public:
 	virtual void start() = 0;
 
 	void addChild(DisplayObject* child);
+	void removeChild(DisplayObject* child);
 	void removeAllChildren();
 	int numberOfChildren() const;
 
@@ -29,6 +30,7 @@ public:
 
 private:
 	std::vector<DisplayObject*> m_displayList;
+	std::vector<DisplayObject*>::reverse_iterator itr1;
 };
 
 #endif /* defined (__SCENE__) */
