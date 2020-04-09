@@ -19,17 +19,17 @@ void Level1Scene::draw()
 	m_background.draw();
 	drawDisplayList();
 
-	//for (Enemy1* enemy1 : m_pEnemy1) {
+	/*for (Enemy1* enemy1 : m_pEnemy1) {
 
-	//	enemy1->draw();
-	//}
+		enemy1->draw();
+	}*/
 }
 
 void Level1Scene::update()
 {
 	updateDisplayList();
 
-	r1 = rand() % 100;
+	r1 = rand() % 100 + 1;
 
 	if (r1 == 10 && x < 10)
 	{
@@ -37,11 +37,16 @@ void Level1Scene::update()
 		enemyDist = enemyDist + 100;
 		x = x + 1;
 		m_pEnemy1 = new Enemy1();
-		m_pEnemy1->setPosition(Config::SCREEN_WIDTH * 0.1 + enemyProximity, 0 - enemyDist);
+		/*m_pEnemy1->setPosition(Config::SCREEN_WIDTH + 100 + enemyProximity, 0 - enemyDist);*/
+		m_pEnemy1->setPosition(m_pShip->getPosition().x, 0 - enemyDist);
 		addChild(m_pEnemy1);
 
 		std::cout << "EnemyNum: " << x << std::endl;
+		std::cout << "R1: " << r1 << std::endl;
+		std::cout << "ShipPosX: " << m_pShip->getPosition().x << std::endl;
 	}
+
+	//m_pEnemy1->setPosition(m_pShip->getPosition().x, 0 - enemyDist);
 }
 
 void Level1Scene::clean()
@@ -101,9 +106,14 @@ void Level1Scene::handleEvents()
 				break;
 			case SDLK_SPACE:
 				std::cout << "fire weapon" << std::endl;
-				m_pBullet1 = new Bullet1();
-				m_pBullet1->setPosition(m_pShip->getShipPosition().x * 0.94f, m_pShip->getShipPosition().y * 0.90f);
-				addChild(m_pBullet1);
+				if (!isFired)
+				{
+					m_pBullet1 = new Bullet1();
+					m_pBullet1->setPosition(m_pShip->getShipPosition().x * 0.94f, m_pShip->getShipPosition().y * 0.90f);
+					addChild(m_pBullet1);
+
+					isFired = true;
+				}
 				break;
 			}
 			
@@ -127,6 +137,12 @@ void Level1Scene::handleEvents()
 			case SDLK_d:
 				m_pShip->setVelocity(glm::vec2(0, m_pShip->getVelocity().y));
 
+				break;
+			case SDLK_SPACE:
+				if (isFired)
+				{
+					isFired = false;
+				}
 				break;
 			}
 

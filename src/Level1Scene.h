@@ -32,6 +32,7 @@ private:
 
 	int r1, x;
 	float enemyDist, enemyProximity;
+	bool isFired;
 };
 
 #endif /* defined (__LEVEL1_SCENE__) */
