@@ -242,5 +242,8 @@
     <ClInclude Include="..\src\Enemy1.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\CollisionShape.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

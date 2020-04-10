@@ -81,6 +81,10 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 				std::cout << "Collision with Obstacle!" << std::endl;
 				TheSoundManager::Instance()->playSound("thunder", 0);
 				break;
+			case ENEMY1:
+				std::cout << "Collision with Enemy1!" << std::endl;
+				TheSoundManager::Instance()->playSound("thunder", 0);
+				break;
 			default:
 				//std::cout << "Collision with unknown type!" << std::endl;
 				break;

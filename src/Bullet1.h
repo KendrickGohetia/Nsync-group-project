@@ -13,6 +13,12 @@ public:
 	void draw() override;
 	void update() override;
 	void clean() override;
+
+	void fireBullet();
+	void moveBullet();
+
+private:
+	float bulletSpeed;
 };
 
 #endif /* define (__BULLET_1__) */

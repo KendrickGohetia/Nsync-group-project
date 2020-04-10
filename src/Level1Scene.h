@@ -22,22 +22,24 @@ public:
 	virtual void start() override;
 	
 	void spawnEnemies();
-	void enemyOutOfBounds();
+	void objectsOutOfBounds();
 	void respawn();
+	void checkCollisions();
 	
 private:
 	glm::vec2 m_mousePosition;
 
 	Background m_background;
-	Bullet1* m_pBullet1;
+	//Bullet1* m_pBullet1;
 	//Enemy1* m_pEnemy1;
 	Ship* m_pShip;
 
 	std::vector<Enemy1*> m_pEnemy1;
+	std::vector<Bullet1*> m_pBullet1;
 
-	int rand1, rand2, enemyNum;
+	int rand1, rand2, enemyNum, bulletNum, childrenNum;
 	float enemyDist, enemyProximity;
-	bool isFired, isEnemySpawned, stopSpawning;
+	bool isFired, enemySpawned, stopSpawning;
 };
 
 #endif /* defined (__LEVEL1_SCENE__) */

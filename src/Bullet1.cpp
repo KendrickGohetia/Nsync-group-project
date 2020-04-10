@@ -2,9 +2,9 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Bullet1::Bullet1()
+Bullet1::Bullet1() :bulletSpeed(5.0f)
 {
-	TheTextureManager::Instance()->load("../Assets/textures/laserBullet.png",
+	TheTextureManager::Instance()->load("../Assets/textures/beam1.png",
 		"bullet1", TheGame::Instance()->getRenderer());
 
 	glm::vec2 size = TheTextureManager::Instance()->getTextureSize("bullet1");
@@ -30,11 +30,24 @@ void Bullet1::draw()
 
 void Bullet1::update()
 {
-	float bulletSpeed = 10.0f;
-
-	setPosition(glm::vec2(getPosition().x, getPosition().y - bulletSpeed));
+	moveBullet();
 }
 
 void Bullet1::clean()
 {
+}
+
+void Bullet1::fireBullet()
+{
+	setVelocity(glm::vec2(getVelocity().x, getVelocity().y + bulletSpeed));
+}
+
+void Bullet1::moveBullet()
+{
+	/*if (getVelocity().y > 0.0f && getPosition().y - getVelocity().y > bulletSpeed)
+	{
+		setVelocity(glm::vec2(getVelocity().x, -bulletSpeed));
+	}*/
+
+	setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y - getVelocity().y));
 }

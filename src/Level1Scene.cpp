@@ -19,23 +19,21 @@ void Level1Scene::draw()
 	m_background.draw();
 	drawDisplayList();
 
-	/*if (isEnemySpawned)
+	/*for (Bullet1* bullet : m_pBullet1)
 	{
-		for (Enemy1* enemy1 : m_pEnemy1)
-		{
-			enemy1->draw();
-		}
+		bullet->draw();
 	}*/
 }
 
 void Level1Scene::update()
 {
 	updateDisplayList();
+	
+	childrenNum = numberOfChildren();
 
-	if (enemyNum > 0)
-	{
-		enemyOutOfBounds();
-	}
+	objectsOutOfBounds();
+
+	checkCollisions();
 
 	if (!stopSpawning)
 	{
@@ -75,34 +73,36 @@ void Level1Scene::handleEvents()
 				TheGame::Instance()->quit();
 				break;
 			case SDLK_1:
-				//TheGame::Instance()->changeSceneState(SceneState::PLAY_SCENE);
+				TheGame::Instance()->changeSceneState(SceneState::START_SCENE);
 				break;
 			case SDLK_2:
 				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
 				break;
 			case SDLK_w:
-				std::cout << "move forward" << std::endl;
 				m_pShip->moveForward();
 				break;
 			case SDLK_a:
-				std::cout << "move left" << std::endl;
 				m_pShip->moveLeft();
 				break;
 			case SDLK_s:
-				std::cout << "move back" << std::endl;
 				m_pShip->moveBack();
 				break;
 			case SDLK_d:
-				std::cout << "move right" << std::endl;
 				m_pShip->moveRight();
 				break;
 			case SDLK_SPACE:
-				std::cout << "fire weapon" << std::endl;
 				if (!isFired)
 				{
-					m_pBullet1 = new Bullet1();
-					m_pBullet1->setPosition(m_pShip->getPosition().x * 0.94f, m_pShip->getPosition().y * 0.90f);
+					m_pBullet1.push_back(new Bullet1());
+					m_pBullet1[bulletNum]->setPosition(m_pShip->getPosition().x - 6.5f, m_pShip->getPosition().y - 55.0f);
+					addChild(m_pBullet1[bulletNum]);
+					m_pBullet1[bulletNum]->fireBullet();
+					bulletNum = bulletNum + 1;
+
+					/*m_pBullet1 = new Bullet1();
+					m_pBullet1->setPosition(m_pShip->getPosition().x - 6.5f, m_pShip->getPosition().y - 55.0f);
 					addChild(m_pBullet1);
+					m_pBullet1->fireBullet();*/
 
 					isFired = true;
 				}
@@ -156,9 +156,10 @@ void Level1Scene::spawnEnemies()
 
 		m_pEnemy1.push_back(new Enemy1());
 		m_pEnemy1[enemyNum]->setPosition(rand2, 0 - enemyDist);
+		//m_pEnemy1[enemyNum]->setPosition(Config::SCREEN_WIDTH * 0.5f, 0 - enemyDist);     //For testing collisions
 		addChild(m_pEnemy1[enemyNum]);
 		enemyNum = enemyNum + 1;
-		isEnemySpawned = true;
+		enemySpawned = true;
 
 		if (enemyNum == 20)
 		{
@@ -170,9 +171,8 @@ void Level1Scene::spawnEnemies()
 	}
 }
 
-void Level1Scene::enemyOutOfBounds()
+void Level1Scene::objectsOutOfBounds()
 {
-	
 	for (int x = 0; x < enemyNum; x++)
 	{
 		if (m_pEnemy1[x]->getPosition().y > Config::SCREEN_HEIGHT * 1.05f)
@@ -181,6 +181,7 @@ void Level1Scene::enemyOutOfBounds()
 			if (x == 19)
 			{
 				respawn();
+				enemySpawned = false;
 			}
 		}
 	}
@@ -193,6 +194,19 @@ void Level1Scene::respawn()
 	enemyProximity = 0;
 	enemyDist = 0;
 	stopSpawning = false;
+}
+
+void Level1Scene::checkCollisions()
+{
+	for (int x = 0; x < enemyNum; x++)
+	{
+		m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy1[x]));
+
+		if (m_pShip->getIsColliding())
+		{
+			//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+		}
+	}
 }
 
 

@@ -198,6 +198,7 @@
     <ClInclude Include="..\src\Background.h" />
     <ClInclude Include="..\src\Bullet1.h" />
     <ClInclude Include="..\src\CollisionManager.h" />
+    <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
     <ClInclude Include="..\src\DisplayObject.h" />
     <ClInclude Include="..\src\EndScene.h" />
