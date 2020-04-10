@@ -23,21 +23,27 @@ public:
 	
 	void spawnEnemies();
 	void objectsOutOfBounds();
-	void respawn();
+	/*void respawn();*/
 	void checkCollisions();
+	void removeEnemy1Element(Enemy1* element);
+	void removeBullet1Element(Bullet1* element);
 	
 private:
 	glm::vec2 m_mousePosition;
 
 	Background m_background;
-	//Bullet1* m_pBullet1;
-	//Enemy1* m_pEnemy1;
 	Ship* m_pShip;
 
 	std::vector<Enemy1*> m_pEnemy1;
 	std::vector<Bullet1*> m_pBullet1;
 
-	int rand1, rand2, enemyNum, bulletNum, childrenNum;
+	std::vector<Enemy1*>::iterator itrx;
+	std::vector<Enemy1*>::reverse_iterator ritr;
+
+	std::vector<Bullet1*>::iterator bulletItrx;
+	std::vector<Bullet1*>::reverse_iterator bulletRitr;
+
+	int rand1, rand2, enemyNum, bulletNum;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
 };

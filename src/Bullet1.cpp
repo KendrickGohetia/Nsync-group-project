@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Bullet1::Bullet1() :bulletSpeed(5.0f)
+Bullet1::Bullet1() :bulletSpeed(10.0f)
 {
 	TheTextureManager::Instance()->load("../Assets/textures/beam1.png",
 		"bullet1", TheGame::Instance()->getRenderer());
