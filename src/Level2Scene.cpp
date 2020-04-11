@@ -240,6 +240,26 @@ void Level2Scene::checkCollisions()
 			}
 		}
 	}
+
+	if ((m_pBullet1.size() > 0) && (m_pEnemyBullet1.size() > 0))
+	{
+		for (int x = 0; x < m_pBullet1.size(); x++)
+		{
+			for (int y = 0; y < m_pEnemyBullet1.size(); y++)
+			{
+				m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pEnemyBullet1[y]));
+
+				if (m_pBullet1[x]->getIsColliding())
+				{
+					removeChild((m_pBullet1[x]));
+					removeBullet1Element((m_pBullet1[x]));
+					removeChild((m_pEnemyBullet1[y]));
+					removeEnemyBullet1Element((m_pEnemyBullet1[y]));
+					return;
+				}
+			}
+		}
+	}
 }
 
 void Level2Scene::removeEnemy2Element(Enemy2* element)
