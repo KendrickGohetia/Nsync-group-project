@@ -60,9 +60,11 @@ private:
 	std::vector<BossBullet*>::iterator bBulletItrx;
 	std::vector<BossBullet*>::reverse_iterator bBulletRitr;
 
-	int rand1, rand2, enemyNum, bulletNum, eBulletNum, bBulletNum, hitScore;
+	int rand1, rand2, enemyNum, bulletNum, eBulletNum, bBulletNum;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
+
+	int hitScore = 40;
 
 	const SDL_Color blue = { 0, 0, 255, 255 };
 

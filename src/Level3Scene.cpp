@@ -237,7 +237,7 @@ void Level3Scene::checkCollisions()
 						m_pScore->setParent(this);
 						addChild(m_pScore);
 
-						if (hitScore == 20)
+						if (hitScore == 0)
 						{
 							std::cout << "HitScore: " << hitScore << std::endl;
 						}
@@ -245,6 +245,34 @@ void Level3Scene::checkCollisions()
 					return;
 				}
 			}
+		}
+	}
+
+	if (m_pBullet1.size() > 0)
+	{
+		for (int x = 0; x < m_pBullet1.size(); x++)
+		{
+			m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pEnemyBoss));
+
+			if (m_pBullet1[x]->getIsColliding())
+			{
+				m_pEnemyBoss->setIsColliding(true);
+				removeChild((m_pBullet1[x]));
+				removeBullet1Element((m_pBullet1[x]));
+				hitScore = hitScore - 1;
+				removeChild(m_pScore);
+				m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.31f, Config::SCREEN_HEIGHT * 0.04f));
+				m_pScore->setParent(this);
+				addChild(m_pScore);
+
+				if (m_pEnemyBoss->getIsKilled())
+				{
+					std::cout << "Enemy Boss HitScore: " << hitScore << std::endl;
+				}
+			
+				return;
+			}
+		
 		}
 	}
 
@@ -402,11 +430,11 @@ void Level3Scene::start()
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.90f);
 	addChild(m_pShip);
 
-	m_pScoreLabel = new Label("SCORE:", "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.075f, Config::SCREEN_HEIGHT * 0.05f));
+	m_pScoreLabel = new Label("BOSS HITS LEFT:", "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.04f));
 	m_pScoreLabel->setParent(this);
 	addChild(m_pScoreLabel);
 
-	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.05f));
+	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.31f, Config::SCREEN_HEIGHT * 0.04f));
 	m_pScore->setParent(this);
 	addChild(m_pScore);
 

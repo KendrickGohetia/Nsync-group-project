@@ -36,7 +36,7 @@ void EnemyBoss::update()
 	{
 		hits = hits + 1;
 
-		if (hits == 1)
+		if (hits == 39)
 		{
 			setIsKilled(true);
 		}
