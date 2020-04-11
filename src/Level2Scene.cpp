@@ -193,6 +193,16 @@ void Level2Scene::checkCollisions()
 				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
 			}
 		}
+
+		for (int x = 0; x < m_pEnemyBullet1.size(); x++)
+		{
+			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemyBullet1[x]));
+
+			if (m_pShip->getIsColliding())
+			{
+				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+			}
+		}
 	}
 
 	if ((m_pBullet1.size() > 0) && (m_pEnemy2.size() > 0))
