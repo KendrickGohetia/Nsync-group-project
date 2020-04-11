@@ -123,6 +123,9 @@
     <ClCompile Include="..\src\Enemy1.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Level2Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="..\src\CollisionShape.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Level2Scene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
