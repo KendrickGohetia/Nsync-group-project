@@ -82,7 +82,7 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 				TheSoundManager::Instance()->playSound("thunder", 0);
 				break;
 			case ENEMY1:
-				std::cout << "Collision with Enemy1!" << std::endl;
+				//std::cout << "Collision with Enemy1!" << std::endl;
 				TheSoundManager::Instance()->playSound("thunder", 0);
 				break;
 			default:

@@ -7,6 +7,7 @@
 #include "Background.h"
 #include "Bullet1.h"
 #include "Enemy1.h"
+#include "Label.h"
 
 class Level1Scene : public Scene
 {
@@ -23,7 +24,6 @@ public:
 	
 	void spawnEnemies();
 	void objectsOutOfBounds();
-	/*void respawn();*/
 	void checkCollisions();
 	void removeEnemy1Element(Enemy1* element);
 	void removeBullet1Element(Bullet1* element);
@@ -43,7 +43,7 @@ private:
 	std::vector<Bullet1*>::iterator bulletItrx;
 	std::vector<Bullet1*>::reverse_iterator bulletRitr;
 
-	int rand1, rand2, enemyNum, bulletNum;
+	int rand1, rand2, enemyNum, bulletNum, hitScore;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
 };

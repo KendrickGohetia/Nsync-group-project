@@ -168,14 +168,6 @@ void Level1Scene::objectsOutOfBounds()
 	}
 }
 
-//void Level1Scene::respawn()
-//{
-//	enemyNum = 0;
-//	enemyProximity = 0;
-//	enemyDist = 0;
-//	stopSpawning = false;
-//}
-
 void Level1Scene::checkCollisions()
 {
 	if (m_pEnemy1.size() > 0)
@@ -186,7 +178,33 @@ void Level1Scene::checkCollisions()
 
 			if (m_pShip->getIsColliding())
 			{
-				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+				TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+			}
+		}
+	}
+
+	if ((m_pBullet1.size() > 0) && (m_pEnemy1.size() > 0))
+	{
+		for (int x = 0; x < m_pBullet1.size(); x++)
+		{
+			for (int y = 0; y < m_pEnemy1.size(); y++)
+			{
+				m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pEnemy1[y]));
+
+				if (m_pBullet1[x]->getIsColliding())
+				{
+					removeChild((m_pEnemy1[y]));
+					removeEnemy1Element((m_pEnemy1[y]));
+					removeChild((m_pBullet1[x]));
+					removeBullet1Element((m_pBullet1[x]));
+					hitScore = hitScore + 1;
+
+					if (hitScore == 10)
+					{
+						std::cout << "HitScore: " << hitScore << std::endl;
+					}
+					return;
+				}
 			}
 		}
 	}
@@ -261,4 +279,10 @@ void Level1Scene::start()
 	m_pShip = new Ship();
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);
+
+	const SDL_Color blue = { 0, 0, 255, 255 };
+	m_pStartLabel = new Label("START SCENE", "Consolas", 80, blue, glm::vec2(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.20f));
+	m_pStartLabel->setParent(this);
+	addChild(m_pStartLabel); 
+
 }
