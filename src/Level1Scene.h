@@ -33,6 +33,8 @@ private:
 
 	Background m_background;
 	Ship* m_pShip;
+	Label* m_pScoreLabel;
+	Label* m_pScore;
 
 	std::vector<Enemy1*> m_pEnemy1;
 	std::vector<Bullet1*> m_pBullet1;
@@ -46,6 +48,9 @@ private:
 	int rand1, rand2, enemyNum, bulletNum, hitScore;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
+
+	const SDL_Color blue = { 0, 0, 255, 255 };
+
 };
 
 #endif /* defined (__LEVEL1_SCENE__) */

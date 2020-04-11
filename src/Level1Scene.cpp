@@ -199,6 +199,11 @@ void Level1Scene::checkCollisions()
 					removeBullet1Element((m_pBullet1[x]));
 					hitScore = hitScore + 1;
 
+					removeChild(m_pScore);
+					m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.05f));
+					m_pScore->setParent(this);
+					addChild(m_pScore);
+
 					if (hitScore == 10)
 					{
 						std::cout << "HitScore: " << hitScore << std::endl;
@@ -274,15 +279,21 @@ void Level1Scene::removeBullet1Element(Bullet1* element)
 
 void Level1Scene::start()
 {
+	const SDL_Color red = { 255, 0, 0, 255 };
+	const SDL_Color green = { 0, 255, 0, 255 };
+
 	m_background = Background();
 
 	m_pShip = new Ship();
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);
 
-	const SDL_Color blue = { 0, 0, 255, 255 };
-	m_pStartLabel = new Label("START SCENE", "Consolas", 80, blue, glm::vec2(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.20f));
-	m_pStartLabel->setParent(this);
-	addChild(m_pStartLabel); 
+	m_pScoreLabel = new Label("SCORE:", "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.075f, Config::SCREEN_HEIGHT * 0.05f));
+	m_pScoreLabel->setParent(this);
+	addChild(m_pScoreLabel);
+
+	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.05f));
+	m_pScore->setParent(this);
+	addChild(m_pScore);
 
 }
