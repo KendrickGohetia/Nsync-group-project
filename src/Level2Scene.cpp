@@ -193,20 +193,25 @@ void Level2Scene::checkCollisions()
 
 				if (m_pBullet1[x]->getIsColliding())
 				{
-					removeChild((m_pEnemy2[y]));
-					removeEnemy2Element((m_pEnemy2[y]));
+					m_pEnemy2[y]->setIsColliding(true);
 					removeChild((m_pBullet1[x]));
 					removeBullet1Element((m_pBullet1[x]));
-					hitScore = hitScore + 1;
 
-					removeChild(m_pScore);
-					m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.05f));
-					m_pScore->setParent(this);
-					addChild(m_pScore);
-
-					if (hitScore == 20)
+					if (m_pEnemy2[y]->getIsKilled())
 					{
-						std::cout << "HitScore: " << hitScore << std::endl;
+						removeChild((m_pEnemy2[y]));
+						removeEnemy2Element((m_pEnemy2[y]));
+						hitScore = hitScore + 1;
+
+						removeChild(m_pScore);
+						m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.05f));
+						m_pScore->setParent(this);
+						addChild(m_pScore);
+
+						if (hitScore == 20)
+						{
+							std::cout << "HitScore: " << hitScore << std::endl;
+						}
 					}
 					return;
 				}

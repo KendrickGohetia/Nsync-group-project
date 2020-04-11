@@ -14,6 +14,14 @@ public:
 	void draw() override;
 	void update() override;
 	void clean() override;
+	void setIsKilled(bool isDead);
+
+	bool getIsKilled();
+
+private:
+
+	int hits;
+	bool isKilled;
 };
 
 #endif /* define (__ENEMY_2__) */

@@ -30,11 +30,33 @@ void Enemy2::draw()
 
 void Enemy2::update()
 {
-	float enemy2Speed = 5.0f;
+	float enemy2Speed = 2.5f;
 
 	setPosition(glm::vec2(getPosition().x, getPosition().y + enemy2Speed));
+
+	if (getIsColliding())
+	{
+		hits = hits + 1;
+
+		if (hits == 1)
+		{
+			setIsKilled(true);
+		}
+
+		setIsColliding(false);
+	}
 }
 
 void Enemy2::clean()
 {
+}
+
+void Enemy2::setIsKilled(bool isIt)
+{
+	isKilled = isIt;
+}
+
+bool Enemy2::getIsKilled()
+{
+	return isKilled;
 }
