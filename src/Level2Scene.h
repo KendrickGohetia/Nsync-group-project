@@ -4,7 +4,7 @@
 
 #include "Scene.h"
 #include "ship.h"
-#include "Background.h"
+#include "Background1.h"
 #include "Bullet1.h"
 #include "Enemy2.h"
 #include "Label.h"
@@ -34,7 +34,7 @@ public:
 private:
 	glm::vec2 m_mousePosition;
 
-	Background m_background;
+	Background1 m_background1;
 	Ship* m_pShip;
 	Label* m_pScoreLabel;
 	Label* m_pScore;
@@ -52,9 +52,11 @@ private:
 	std::vector<EnemyBullet1*>::iterator eBulletItrx;
 	std::vector<EnemyBullet1*>::reverse_iterator eBulletRitr;
 
-	int rand1, rand2, enemyNum, bulletNum, eBulletNum, hitScore;
+	int rand1, rand2, enemyNum, bulletNum, eBulletNum;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
+
+	int hitScore = 20;
 
 	const SDL_Color blue = { 0, 0, 255, 255 };
 
