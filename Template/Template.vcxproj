@@ -175,6 +175,7 @@
     <ClCompile Include="..\src\Label.cpp" />
     <ClCompile Include="..\src\Level1Scene.cpp" />
     <ClCompile Include="..\src\Level2Scene.cpp" />
+    <ClCompile Include="..\src\Level3Scene.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Mine.cpp" />
     <ClCompile Include="..\src\PathFindingDisplayObject.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="..\src\Label.h" />
     <ClInclude Include="..\src\Level1Scene.h" />
     <ClInclude Include="..\src\Level2Scene.h" />
+    <ClInclude Include="..\src\Level3Scene.h" />
     <ClInclude Include="..\src\Mine.h" />
     <ClInclude Include="..\src\PathFindingDisplayObject.h" />
     <ClInclude Include="..\src\Planet.h" />

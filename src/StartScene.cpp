@@ -57,7 +57,8 @@ void StartScene::handleEvents()
 				break;
 			case SDLK_1:
 				//TheGame::Instance()->changeSceneState(SceneState::LEVEL1_SCENE);
-				TheGame::Instance()->changeSceneState(SceneState::LEVEL2_SCENE);
+				//TheGame::Instance()->changeSceneState(SceneState::LEVEL2_SCENE);
+				TheGame::Instance()->changeSceneState(SceneState::LEVEL3_SCENE);
 				break;
 			case SDLK_2:
 				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
