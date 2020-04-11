@@ -9,6 +9,7 @@
 #include "Enemy2.h"
 #include "Label.h"
 #include "EnemyBullet1.h"
+#include "EnemyBoss.h"
 
 class Level3Scene : public Scene
 {
@@ -38,6 +39,7 @@ private:
 	Ship* m_pShip;
 	Label* m_pScoreLabel;
 	Label* m_pScore;
+	EnemyBoss* m_pEnemyBoss;
 
 	std::vector<Enemy2*> m_pEnemy2;
 	std::vector<Bullet1*> m_pBullet1;

@@ -293,7 +293,6 @@ void Level3Scene::removeEnemyBullet1Element(EnemyBullet1* element)
 		{
 			m_pEnemyBullet1.erase((eBulletRitr + 1).base());
 			eBulletNum = eBulletNum - 1;
-			std::cout << "m_pEnemyBullet1 size: " << m_pEnemyBullet1.size() << std::endl;
 			return;
 		}
 	}
@@ -332,7 +331,7 @@ void Level3Scene::start()
 	m_background = Background();
 
 	m_pShip = new Ship();
-	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
+	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.90f);
 	addChild(m_pShip);
 
 	m_pScoreLabel = new Label("SCORE:", "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.075f, Config::SCREEN_HEIGHT * 0.05f));
@@ -343,4 +342,7 @@ void Level3Scene::start()
 	m_pScore->setParent(this);
 	addChild(m_pScore);
 
+	m_pEnemyBoss = new EnemyBoss();
+	m_pEnemyBoss->setPosition(Config::SCREEN_WIDTH * 0.3f, 0 - 300);
+	addChild(m_pEnemyBoss);
 }
