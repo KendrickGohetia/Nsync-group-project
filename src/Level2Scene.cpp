@@ -26,6 +26,8 @@ void Level2Scene::update()
 
 	objectsOutOfBounds();
 
+	enemyFire();
+
 	checkCollisions();
 
 	spawnEnemies();
@@ -166,6 +168,16 @@ void Level2Scene::objectsOutOfBounds()
 			return;
 		}
 	}
+
+	for (eBulletItrx = m_pEnemyBullet1.begin(); eBulletItrx != m_pEnemyBullet1.end(); eBulletItrx++)
+	{
+		if ((*eBulletItrx)->getPosition().y > Config::SCREEN_HEIGHT)
+		{
+			removeChild((*eBulletItrx));
+			removeEnemyBullet1Element((*eBulletItrx));
+			return;
+		}
+	}
 }
 
 void Level2Scene::checkCollisions()
@@ -178,7 +190,7 @@ void Level2Scene::checkCollisions()
 
 			if (m_pShip->getIsColliding())
 			{
-				TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
 			}
 		}
 	}
@@ -226,24 +238,8 @@ void Level2Scene::removeEnemy2Element(Enemy2* element)
 	{
 		if (*ritr == element)
 		{
-			/*std::cout << "Enemy list before erase:";
-			for (itrx = m_pEnemy1.begin(); itrx != m_pEnemy1.end(); itrx++)
-			{
-				std::cout << ' ' << *itrx;
-				std::cout << '\n';
-			}*/
-
 			m_pEnemy2.erase((ritr + 1).base());
 			enemyNum = enemyNum - 1;
-
-			/*std::cout << "Enemy list after erase:";
-			for (itrx = m_pEnemy1.begin(); itrx != m_pEnemy1.end(); itrx++)
-			{
-				std::cout << ' ' << *itrx;
-				std::cout << '\n';
-				std::cout << "Size: " << m_pEnemy1.size();
-			}*/
-
 			return;
 		}
 	}
@@ -255,28 +251,42 @@ void Level2Scene::removeBullet1Element(Bullet1* element)
 	{
 		if (*bulletRitr == element)
 		{
-			/*std::cout << "Bullet1 list before erase:";
-			std::cout << '\n';
-			for (bulletItrx = m_pBullet1.begin(); bulletItrx != m_pBullet1.end(); bulletItrx++)
-			{
-				std::cout << ' ' << *bulletItrx;
-				std::cout << '\n';
-			}*/
-
 			m_pBullet1.erase((bulletRitr + 1).base());
 			bulletNum = bulletNum - 1;
-
-			/*std::cout << "Bullet1 list after erase:";
-			std::cout << '\n';
-			for (bulletItrx = m_pBullet1.begin(); bulletItrx != m_pBullet1.end(); bulletItrx++)
-			{
-				std::cout << ' ' << *bulletItrx;
-				std::cout << '\n';
-			}
-
-			std::cout << "Size: " << m_pBullet1.size();
-			std::cout << '\n';*/
 			return;
+		}
+	}
+}
+
+void Level2Scene::removeEnemyBullet1Element(EnemyBullet1* element)
+{
+	for (eBulletRitr = m_pEnemyBullet1.rbegin(); eBulletRitr < m_pEnemyBullet1.rend(); eBulletRitr++)
+	{
+		if (*eBulletRitr == element)
+		{
+			m_pEnemyBullet1.erase((eBulletRitr + 1).base());
+			eBulletNum = eBulletNum - 1;
+			std::cout << "m_pEnemyBullet1 size: " << m_pEnemyBullet1.size() << std::endl;
+			return;
+		}
+	}
+}
+
+void Level2Scene::enemyFire()
+{
+	if (m_pEnemy2.size() > 0)
+	{
+		for (int x = 0; x < m_pEnemy2.size(); x++)
+		{
+			/*if ((m_pEnemy2[x]->getPosition().y > Config::SCREEN_HEIGHT * 0.05f) && (!m_pEnemy2[x]->getHasFired()))*/
+			if ((m_pEnemy2[x]->getPosition().y > Config::SCREEN_HEIGHT * 0.05f))
+			{
+				m_pEnemyBullet1.push_back(new EnemyBullet1());
+				m_pEnemyBullet1[eBulletNum]->setPosition(m_pEnemy2[x]->getPosition().x + 15.0f, m_pEnemy2[x]->getPosition().y + 55.0f);
+				addChild(m_pEnemyBullet1[eBulletNum]);
+				m_pEnemyBullet1[eBulletNum]->fireBullet();
+				eBulletNum = eBulletNum + 1;
+			}
 		}
 	}
 }

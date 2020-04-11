@@ -44,5 +44,5 @@ void EnemyBullet1::fireBullet()
 
 void EnemyBullet1::moveBullet()
 {
-	setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y - getVelocity().y));
+	setPosition(glm::vec2(getPosition().x + getVelocity().x, getPosition().y + getVelocity().y));
 }

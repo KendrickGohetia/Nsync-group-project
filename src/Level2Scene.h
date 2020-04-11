@@ -8,6 +8,8 @@
 #include "Bullet1.h"
 #include "Enemy2.h"
 #include "Label.h"
+#include "EnemyBullet1.h"
+//#include <Clock.hpp>
 
 class Level2Scene : public Scene
 {
@@ -25,8 +27,10 @@ public:
 	void spawnEnemies();
 	void objectsOutOfBounds();
 	void checkCollisions();
+	void enemyFire();
 	void removeEnemy2Element(Enemy2* element);
 	void removeBullet1Element(Bullet1* element);
+	void removeEnemyBullet1Element(EnemyBullet1* element);
 
 private:
 	glm::vec2 m_mousePosition;
@@ -38,6 +42,7 @@ private:
 
 	std::vector<Enemy2*> m_pEnemy2;
 	std::vector<Bullet1*> m_pBullet1;
+	std::vector<EnemyBullet1*> m_pEnemyBullet1;
 
 	std::vector<Enemy2*>::iterator itrx;
 	std::vector<Enemy2*>::reverse_iterator ritr;
@@ -45,7 +50,10 @@ private:
 	std::vector<Bullet1*>::iterator bulletItrx;
 	std::vector<Bullet1*>::reverse_iterator bulletRitr;
 
-	int rand1, rand2, enemyNum, bulletNum, hitScore;
+	std::vector<EnemyBullet1*>::iterator eBulletItrx;
+	std::vector<EnemyBullet1*>::reverse_iterator eBulletRitr;
+
+	int rand1, rand2, enemyNum, bulletNum, eBulletNum, hitScore;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
 
