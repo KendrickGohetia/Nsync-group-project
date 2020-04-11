@@ -55,7 +55,7 @@ void EnemyBoss::enemyFire()
 {
 	rand1 = rand() % 100 + 1;
 
-	if (rand1 <= 5)
+	if ((rand1 <= 10) && (heightReached))
 	{
 		setEnemyFire(true);
 		hasFired = hasFired + 1;
@@ -85,7 +85,6 @@ void EnemyBoss::bossMove()
 		{
 			isSwaying = true;
 		}
-		std::cout << "Sway Right" << std::endl;
 	}
 
 	if ((isSwaying) && (wasSwayingRight))
@@ -96,7 +95,6 @@ void EnemyBoss::bossMove()
 			wasSwayingLeft = true;
 			wasSwayingRight = false;
 		}
-		std::cout << "Sway Left" << std::endl;
 	}
 
 	if ((isSwaying) && (wasSwayingLeft))
@@ -107,7 +105,6 @@ void EnemyBoss::bossMove()
 			wasSwayingLeft = false;
 			wasSwayingRight = true;
 		}
-		std::cout << "Sway Right" << std::endl;
 	}
 }
 

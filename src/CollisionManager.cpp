@@ -89,6 +89,14 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 				//std::cout << "Collision with EnemyBullet1!" << std::endl;
 				TheSoundManager::Instance()->playSound("thunder", 0);
 				break;
+			case ENEMYBOSS:
+				//std::cout << "Collision with EnemyBoss!" << std::endl;
+				TheSoundManager::Instance()->playSound("thunder", 0);
+				break;
+			case BOSSBULLET:
+				//std::cout << "Collision with BossBullet!" << std::endl;
+				TheSoundManager::Instance()->playSound("thunder", 0);
+				break;
 			default:
 				//std::cout << "Collision with unknown type!" << std::endl;
 				break;

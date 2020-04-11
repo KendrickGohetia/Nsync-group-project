@@ -175,6 +175,16 @@ void Level3Scene::objectsOutOfBounds()
 			return;
 		}
 	}
+
+	for (bBulletItrx = m_pBossBullet.begin(); bBulletItrx != m_pBossBullet.end(); bBulletItrx++)
+	{
+		if ((*bBulletItrx)->getPosition().y > Config::SCREEN_HEIGHT)
+		{
+			removeChild((*bBulletItrx));
+			removeBossBulletElement((*bBulletItrx));
+			return;
+		}
+	}
 }
 
 void Level3Scene::checkCollisions()
@@ -257,6 +267,43 @@ void Level3Scene::checkCollisions()
 			}
 		}
 	}
+
+	if ((m_pBullet1.size() > 0) && (m_pBossBullet.size() > 0))
+	{
+		for (int x = 0; x < m_pBullet1.size(); x++)
+		{
+			for (int y = 0; y < m_pBossBullet.size(); y++)
+			{
+				m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pBossBullet[y]));
+
+				if (m_pBullet1[x]->getIsColliding())
+				{
+					removeChild((m_pBullet1[x]));
+					removeBullet1Element((m_pBullet1[x]));
+					removeChild((m_pBossBullet[y]));
+					removeBossBulletElement((m_pBossBullet[y]));
+					return;
+				}
+			}
+		}
+	}
+
+	for (int x = 0; x < m_pBossBullet.size(); x++)
+	{
+		m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pBossBullet[x]));
+
+		if (m_pShip->getIsColliding())
+		{
+			//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+		}
+	}
+
+	m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemyBoss));
+
+	if (m_pShip->getIsColliding())
+	{
+		//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+	}
 }
 
 void Level3Scene::removeEnemy2Element(Enemy2* element)
@@ -298,16 +345,27 @@ void Level3Scene::removeEnemyBullet1Element(EnemyBullet1* element)
 	}
 }
 
+void Level3Scene::removeBossBulletElement(BossBullet* element)
+{
+	for (bBulletRitr = m_pBossBullet.rbegin(); bBulletRitr < m_pBossBullet.rend(); bBulletRitr++)
+	{
+		if (*bBulletRitr == element)
+		{
+			m_pBossBullet.erase((bBulletRitr + 1).base());
+			bBulletNum = bBulletNum - 1;
+			return;
+		}
+	}
+}
+
 void Level3Scene::enemyFire()
 {
 	if (m_pEnemy2.size() > 0)
 	{
 		for (int x = 0; x < m_pEnemy2.size(); x++)
 		{
-			/*if ((m_pEnemy2[x]->getPosition().y > Config::SCREEN_HEIGHT * 0.05f) && (!m_pEnemy2[x]->getHasFired()))*/
 			if ((m_pEnemy2[x]->getPosition().y > Config::SCREEN_HEIGHT * 0.05f))
 			{
-				/*if ((m_pEnemy2[x]->getEnemyFire()) && (!m_pEnemy2[x]->enemyStopFiring()))*/
 				if (m_pEnemy2[x]->getEnemyFire())
 				{
 					m_pEnemyBullet1.push_back(new EnemyBullet1());
@@ -319,6 +377,16 @@ void Level3Scene::enemyFire()
 				}
 			}
 		}
+	}
+
+	if (m_pEnemyBoss->getEnemyFire())
+	{
+		m_pBossBullet.push_back(new BossBullet());
+		m_pBossBullet[bBulletNum]->setPosition(m_pEnemyBoss->getPosition().x + 110.0f, m_pEnemyBoss->getPosition().y + 150.0f);
+		addChild(m_pBossBullet[bBulletNum]);
+		m_pBossBullet[bBulletNum]->fireBullet();
+		bBulletNum = bBulletNum + 1;
+		m_pEnemyBoss->setEnemyFire(false);
 	}
 }
 

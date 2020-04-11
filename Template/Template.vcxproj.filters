@@ -138,6 +138,9 @@
     <ClCompile Include="..\src\EnemyBoss.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\BossBulletcpp.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -273,6 +276,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EnemyBoss.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BossBullet.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>

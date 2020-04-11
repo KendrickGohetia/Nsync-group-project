@@ -10,6 +10,7 @@
 #include "Label.h"
 #include "EnemyBullet1.h"
 #include "EnemyBoss.h"
+#include "BossBullet.h"
 
 class Level3Scene : public Scene
 {
@@ -31,6 +32,7 @@ public:
 	void removeEnemy2Element(Enemy2* element);
 	void removeBullet1Element(Bullet1* element);
 	void removeEnemyBullet1Element(EnemyBullet1* element);
+	void removeBossBulletElement(BossBullet* element);
 
 private:
 	glm::vec2 m_mousePosition;
@@ -44,6 +46,7 @@ private:
 	std::vector<Enemy2*> m_pEnemy2;
 	std::vector<Bullet1*> m_pBullet1;
 	std::vector<EnemyBullet1*> m_pEnemyBullet1;
+	std::vector<BossBullet*> m_pBossBullet;
 
 	std::vector<Enemy2*>::iterator itrx;
 	std::vector<Enemy2*>::reverse_iterator ritr;
@@ -54,7 +57,10 @@ private:
 	std::vector<EnemyBullet1*>::iterator eBulletItrx;
 	std::vector<EnemyBullet1*>::reverse_iterator eBulletRitr;
 
-	int rand1, rand2, enemyNum, bulletNum, eBulletNum, hitScore;
+	std::vector<BossBullet*>::iterator bBulletItrx;
+	std::vector<BossBullet*>::reverse_iterator bBulletRitr;
+
+	int rand1, rand2, enemyNum, bulletNum, eBulletNum, bBulletNum, hitScore;
 	float enemyDist, enemyProximity;
 	bool isFired, enemySpawned, stopSpawning;
 

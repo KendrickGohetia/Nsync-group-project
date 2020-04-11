@@ -5,6 +5,7 @@ enum GameObjectType {
 	NONE = -1,
 	SHIP,
 	BACKGROUND,
+	BOSSBULLET,
 	BULLET1,
 	ENEMYBULLET1,
 	ENEMY1,
