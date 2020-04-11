@@ -133,26 +133,26 @@ void Level2Scene::spawnEnemies()
 	rand1 = rand() % 100 + 1;
 	rand2 = rand() % 550 + 1;
 
-	if ((rand1 < 8) && (rand2 >= 50) && (m_pEnemy1.size() < 20))
+	if ((rand1 < 8) && (rand2 >= 50) && (m_pEnemy2.size() < 20))
 	{
 		enemyProximity = enemyProximity + 50;
 		enemyDist = enemyDist + 200;
 
-		m_pEnemy1.push_back(new Enemy1());
-		m_pEnemy1[enemyNum]->setPosition(rand2, 0 - enemyDist);
-		addChild(m_pEnemy1[enemyNum]);
+		m_pEnemy2.push_back(new Enemy2());
+		m_pEnemy2[enemyNum]->setPosition(rand2, 0 - enemyDist);
+		addChild(m_pEnemy2[enemyNum]);
 		enemyNum = enemyNum + 1;
 	}
 }
 
 void Level2Scene::objectsOutOfBounds()
 {
-	for (itrx = m_pEnemy1.begin(); itrx != m_pEnemy1.end(); itrx++)
+	for (itrx = m_pEnemy2.begin(); itrx != m_pEnemy2.end(); itrx++)
 	{
 		if ((*itrx)->getPosition().y > Config::SCREEN_HEIGHT * 1.05f)
 		{
 			removeChild((*itrx));
-			removeEnemy1Element((*itrx));
+			removeEnemy2Element((*itrx));
 			return;
 		}
 	}
@@ -170,11 +170,11 @@ void Level2Scene::objectsOutOfBounds()
 
 void Level2Scene::checkCollisions()
 {
-	if (m_pEnemy1.size() > 0)
+	if (m_pEnemy2.size() > 0)
 	{
-		for (int x = 0; x < m_pEnemy1.size(); x++)
+		for (int x = 0; x < m_pEnemy2.size(); x++)
 		{
-			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy1[x]));
+			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy2[x]));
 
 			if (m_pShip->getIsColliding())
 			{
@@ -183,18 +183,18 @@ void Level2Scene::checkCollisions()
 		}
 	}
 
-	if ((m_pBullet1.size() > 0) && (m_pEnemy1.size() > 0))
+	if ((m_pBullet1.size() > 0) && (m_pEnemy2.size() > 0))
 	{
 		for (int x = 0; x < m_pBullet1.size(); x++)
 		{
-			for (int y = 0; y < m_pEnemy1.size(); y++)
+			for (int y = 0; y < m_pEnemy2.size(); y++)
 			{
-				m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pEnemy1[y]));
+				m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pEnemy2[y]));
 
 				if (m_pBullet1[x]->getIsColliding())
 				{
-					removeChild((m_pEnemy1[y]));
-					removeEnemy1Element((m_pEnemy1[y]));
+					removeChild((m_pEnemy2[y]));
+					removeEnemy2Element((m_pEnemy2[y]));
 					removeChild((m_pBullet1[x]));
 					removeBullet1Element((m_pBullet1[x]));
 					hitScore = hitScore + 1;
@@ -215,9 +215,9 @@ void Level2Scene::checkCollisions()
 	}
 }
 
-void Level2Scene::removeEnemy1Element(Enemy1* element)
+void Level2Scene::removeEnemy2Element(Enemy2* element)
 {
-	for (ritr = m_pEnemy1.rbegin(); ritr < m_pEnemy1.rend(); ritr++)
+	for (ritr = m_pEnemy2.rbegin(); ritr < m_pEnemy2.rend(); ritr++)
 	{
 		if (*ritr == element)
 		{
@@ -228,7 +228,7 @@ void Level2Scene::removeEnemy1Element(Enemy1* element)
 				std::cout << '\n';
 			}*/
 
-			m_pEnemy1.erase((ritr + 1).base());
+			m_pEnemy2.erase((ritr + 1).base());
 			enemyNum = enemyNum - 1;
 
 			/*std::cout << "Enemy list after erase:";

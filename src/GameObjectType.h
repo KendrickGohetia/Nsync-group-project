@@ -7,6 +7,7 @@ enum GameObjectType {
 	BACKGROUND,
 	BULLET1,
 	ENEMY1,
+	ENEMY2,
 	TARGET,
 	OBSTACLE,
 	PLANET,

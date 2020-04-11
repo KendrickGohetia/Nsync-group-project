@@ -167,6 +167,7 @@
     <ClCompile Include="..\src\DisplayObject.cpp" />
     <ClCompile Include="..\src\EndScene.cpp" />
     <ClCompile Include="..\src\Enemy1.cpp" />
+    <ClCompile Include="..\src\Enemy2.cpp" />
     <ClCompile Include="..\src\FontManager.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="..\src\DisplayObject.h" />
     <ClInclude Include="..\src\EndScene.h" />
     <ClInclude Include="..\src\Enemy1.h" />
+    <ClInclude Include="..\src\Enemy2.h" />
     <ClInclude Include="..\src\FontManager.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\GameObject.h" />

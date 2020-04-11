@@ -6,7 +6,7 @@
 #include "ship.h"
 #include "Background.h"
 #include "Bullet1.h"
-#include "Enemy1.h"
+#include "Enemy2.h"
 #include "Label.h"
 
 class Level2Scene : public Scene
@@ -25,7 +25,7 @@ public:
 	void spawnEnemies();
 	void objectsOutOfBounds();
 	void checkCollisions();
-	void removeEnemy1Element(Enemy1* element);
+	void removeEnemy2Element(Enemy2* element);
 	void removeBullet1Element(Bullet1* element);
 
 private:
@@ -36,11 +36,11 @@ private:
 	Label* m_pScoreLabel;
 	Label* m_pScore;
 
-	std::vector<Enemy1*> m_pEnemy1;
+	std::vector<Enemy2*> m_pEnemy2;
 	std::vector<Bullet1*> m_pBullet1;
 
-	std::vector<Enemy1*>::iterator itrx;
-	std::vector<Enemy1*>::reverse_iterator ritr;
+	std::vector<Enemy2*>::iterator itrx;
+	std::vector<Enemy2*>::reverse_iterator ritr;
 
 	std::vector<Bullet1*>::iterator bulletItrx;
 	std::vector<Bullet1*>::reverse_iterator bulletRitr;
