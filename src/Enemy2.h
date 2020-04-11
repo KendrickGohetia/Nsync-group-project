@@ -14,14 +14,18 @@ public:
 	void draw() override;
 	void update() override;
 	void clean() override;
+	void enemyFire();
 	void setIsKilled(bool isDead);
+	void setEnemyFire(bool isFire);
 
 	bool getIsKilled();
+	bool getEnemyFire();
+	/*bool enemyStopFiring();*/
 
 private:
 
-	int hits;
-	bool isKilled;
+	int hits, hasFired, rand1;
+	bool isKilled, isEnemyFire;
 };
 
 #endif /* define (__ENEMY_2__) */

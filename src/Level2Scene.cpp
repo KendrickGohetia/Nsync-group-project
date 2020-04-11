@@ -281,11 +281,16 @@ void Level2Scene::enemyFire()
 			/*if ((m_pEnemy2[x]->getPosition().y > Config::SCREEN_HEIGHT * 0.05f) && (!m_pEnemy2[x]->getHasFired()))*/
 			if ((m_pEnemy2[x]->getPosition().y > Config::SCREEN_HEIGHT * 0.05f))
 			{
-				m_pEnemyBullet1.push_back(new EnemyBullet1());
-				m_pEnemyBullet1[eBulletNum]->setPosition(m_pEnemy2[x]->getPosition().x + 15.0f, m_pEnemy2[x]->getPosition().y + 55.0f);
-				addChild(m_pEnemyBullet1[eBulletNum]);
-				m_pEnemyBullet1[eBulletNum]->fireBullet();
-				eBulletNum = eBulletNum + 1;
+				/*if ((m_pEnemy2[x]->getEnemyFire()) && (!m_pEnemy2[x]->enemyStopFiring()))*/
+				if (m_pEnemy2[x]->getEnemyFire())
+				{
+					m_pEnemyBullet1.push_back(new EnemyBullet1());
+					m_pEnemyBullet1[eBulletNum]->setPosition(m_pEnemy2[x]->getPosition().x + 15.0f, m_pEnemy2[x]->getPosition().y + 55.0f);
+					addChild(m_pEnemyBullet1[eBulletNum]);
+					m_pEnemyBullet1[eBulletNum]->fireBullet();
+					eBulletNum = eBulletNum + 1;
+					m_pEnemy2[x]->setEnemyFire(false);
+				}
 			}
 		}
 	}

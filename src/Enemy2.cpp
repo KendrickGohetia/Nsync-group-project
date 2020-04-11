@@ -45,18 +45,51 @@ void Enemy2::update()
 
 		setIsColliding(false);
 	}
+
+	enemyFire();
 }
 
 void Enemy2::clean()
 {
 }
 
-void Enemy2::setIsKilled(bool isIt)
+void Enemy2::enemyFire()
 {
-	isKilled = isIt;
+	rand1 = rand() % 100 + 1;
+
+	if (rand1 <= 5)
+	{
+		setEnemyFire(true);
+		hasFired = hasFired + 1;
+	}
+}
+
+void Enemy2::setIsKilled(bool isDead)
+{
+	isKilled = isDead;
+}
+
+void Enemy2::setEnemyFire(bool isFire)
+{
+	isEnemyFire = isFire;
 }
 
 bool Enemy2::getIsKilled()
 {
 	return isKilled;
 }
+
+bool Enemy2::getEnemyFire()
+{
+	return isEnemyFire;
+}
+
+//bool Enemy2::enemyStopFiring()
+//{
+//	if (hasFired == 5)
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+

@@ -9,7 +9,6 @@
 #include "Enemy2.h"
 #include "Label.h"
 #include "EnemyBullet1.h"
-//#include <Clock.hpp>
 
 class Level2Scene : public Scene
 {
