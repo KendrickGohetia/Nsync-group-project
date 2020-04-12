@@ -4,7 +4,6 @@
 
 #include "Scene.h"
 #include "Label.h"
-#include "Background1.h"
 #include "SceneState.h"
 
 class InstructionScene final : public Scene
@@ -33,7 +32,6 @@ private:
 	Label* m_pLabel10{};
 	Label* m_pLabel11{};
 	Label* m_pLabel12{};
-	Background1 m_pBackground1;
 	SceneState m_prevSceneState;
 
 };

@@ -13,7 +13,6 @@ InstructionScene::~InstructionScene()
 
 void InstructionScene::draw()
 {
-	m_pBackground1.draw();
 	drawDisplayList();
 }
 
@@ -100,22 +99,6 @@ void InstructionScene::handleEvents()
 				{
 					TheGame::Instance()->changeSceneState(SceneState::LEVEL3_SCENE);
 				}
-
-				/*switch (m_prevSceneState)
-				{
-				case SceneState::START_SCENE:
-					TheGame::Instance()->changeSceneState(SceneState::LEVEL1_SCENE);
-					break;
-				case SceneState::LEVEL1_SCENE:
-					TheGame::Instance()->changeSceneState(SceneState::LEVEL2_SCENE);
-					break;
-				case SceneState::LEVEL2_SCENE:
-					TheGame::Instance()->changeSceneState(SceneState::LEVEL3_SCENE);
-					break;
-				case SceneState::LOSE_SCENE:
-					TheGame::Instance()->changeSceneState(m_prevSceneState);
-					break;
-				}*/
 				break;
 			case SDLK_2:
 				TheGame::Instance()->changeSceneState(SceneState::START_SCENE);
@@ -247,50 +230,5 @@ void InstructionScene::start()
 		m_pLabel3->setParent(this);
 		addChild(m_pLabel3);
 	}
-
-	/*switch (m_prevSceneState)
-	{
-	case SceneState::START_SCENE:
-		m_pLabel2 = new Label("You must kill the specified number", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.325f, Config::SCREEN_HEIGHT * 0.10f));
-		m_pLabel2->setParent(this);
-		addChild(m_pLabel2);
-
-		m_pLabel3 = new Label("of enemies to proceed!", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.22f, Config::SCREEN_HEIGHT * 0.15f));
-		m_pLabel3->setParent(this);
-		addChild(m_pLabel3);
-		break;
-
-	case SceneState::LEVEL1_SCENE:
-		m_pLabel2 = new Label("You must kill the specified number", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.32f, Config::SCREEN_HEIGHT * 0.10f));
-		m_pLabel2->setParent(this);
-		addChild(m_pLabel2);
-
-		m_pLabel3 = new Label("of enemies to proceed!", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.22f, Config::SCREEN_HEIGHT * 0.15f));
-		m_pLabel3->setParent(this);
-		addChild(m_pLabel3);
-
-		m_pLabel11 = new Label("Enemies are now shielded (two hits to die).", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.41f, Config::SCREEN_HEIGHT * 0.20f));
-		m_pLabel11->setParent(this);
-		addChild(m_pLabel11);
-
-		m_pLabel12 = new Label("Enemies now also shoot bullets.", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.30f, Config::SCREEN_HEIGHT * 0.25f));
-		m_pLabel12->setParent(this);
-		addChild(m_pLabel12);
-		break;
-
-	case SceneState::LEVEL2_SCENE:
-		m_pLabel2 = new Label("Boss battle! You need to hit the boss", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.355f, Config::SCREEN_HEIGHT * 0.10f));
-		m_pLabel2->setParent(this);
-		addChild(m_pLabel2);
-
-		m_pLabel3 = new Label("a specified number of times to kill it", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.365f, Config::SCREEN_HEIGHT * 0.15f));
-		m_pLabel3->setParent(this);
-		addChild(m_pLabel3);
-		break;
-	}*/
-
-	m_pBackground1 = Background1();
-
-
 }
 
