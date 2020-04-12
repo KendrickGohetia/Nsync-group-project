@@ -1,7 +1,5 @@
 #include "Level3Scene.h"
 #include "Game.h"
-//#include <chrono>
-//#include <thread>
 
 Level3Scene::Level3Scene()
 {
@@ -189,29 +187,6 @@ void Level3Scene::objectsOutOfBounds()
 
 void Level3Scene::checkCollisions()
 {
-	if (m_pEnemy2.size() > 0)
-	{
-		for (int x = 0; x < m_pEnemy2.size(); x++)
-		{
-			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy2[x]));
-
-			if (m_pShip->getIsColliding())
-			{
-				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
-			}
-		}
-
-		for (int x = 0; x < m_pEnemyBullet1.size(); x++)
-		{
-			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemyBullet1[x]));
-
-			if (m_pShip->getIsColliding())
-			{
-				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
-			}
-		}
-	}
-
 	if ((m_pBullet1.size() > 0) && (m_pEnemy2.size() > 0))
 	{
 		for (int x = 0; x < m_pBullet1.size(); x++)
@@ -230,17 +205,6 @@ void Level3Scene::checkCollisions()
 					{
 						removeChild((m_pEnemy2[y]));
 						removeEnemy2Element((m_pEnemy2[y]));
-						hitScore = hitScore + 1;
-
-						removeChild(m_pScore);
-						m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.05f));
-						m_pScore->setParent(this);
-						addChild(m_pScore);
-
-						if (hitScore == 0)
-						{
-							std::cout << "HitScore: " << hitScore << std::endl;
-						}
 					}
 					return;
 				}
@@ -254,20 +218,21 @@ void Level3Scene::checkCollisions()
 		{
 			m_pBullet1[x]->setIsColliding(CollisionManager::AABBCheck(m_pBullet1[x], m_pEnemyBoss));
 
-			if (m_pBullet1[x]->getIsColliding())
+			if ((m_pBullet1[x]->getIsColliding()) && (m_pEnemyBoss->getPosition().y == Config::SCREEN_HEIGHT * 0.05f))
 			{
 				m_pEnemyBoss->setIsColliding(true);
 				removeChild((m_pBullet1[x]));
 				removeBullet1Element((m_pBullet1[x]));
 				hitScore = hitScore - 1;
 				removeChild(m_pScore);
-				m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.31f, Config::SCREEN_HEIGHT * 0.04f));
+				const SDL_Color black = { 0, 0, 0, 255 };
+				m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.31f, Config::SCREEN_HEIGHT * 0.04f));
 				m_pScore->setParent(this);
 				addChild(m_pScore);
 
 				if (m_pEnemyBoss->getIsKilled())
 				{
-					std::cout << "Enemy Boss HitScore: " << hitScore << std::endl;
+					TheGame::Instance()->changeSceneState(SceneState::GAME_OVER_SCENE);
 				}
 			
 				return;
@@ -316,21 +281,41 @@ void Level3Scene::checkCollisions()
 		}
 	}
 
-	for (int x = 0; x < m_pBossBullet.size(); x++)
+	if (m_pEnemy2.size() > 0)
 	{
-		m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pBossBullet[x]));
-
-		if (m_pShip->getIsColliding())
+		for (int x = 0; x < m_pEnemy2.size(); x++)
 		{
-			//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+			if (!m_pShip->getIsColliding())
+			{
+				m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy2[x]));
+			}
+		}
+
+		for (int x = 0; x < m_pEnemyBullet1.size(); x++)
+		{
+			if (!m_pShip->getIsColliding())
+			{
+				m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemyBullet1[x]));
+			}
 		}
 	}
 
-	m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemyBoss));
+	for (int x = 0; x < m_pBossBullet.size(); x++)
+	{
+		if (!m_pShip->getIsColliding())
+		{
+			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pBossBullet[x]));
+		}
+	}
+
+	if (!m_pShip->getIsColliding())
+	{
+		m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemyBoss));
+	}
 
 	if (m_pShip->getIsColliding())
 	{
-		//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+		TheGame::Instance()->changeSceneState(SceneState::LOSE_SCENE);
 	}
 }
 
@@ -423,6 +408,7 @@ void Level3Scene::start()
 {
 	const SDL_Color red = { 255, 0, 0, 255 };
 	const SDL_Color green = { 0, 255, 0, 255 };
+	const SDL_Color black = { 0, 0, 0, 255 };
 
 	m_background = Background();
 
@@ -430,11 +416,11 @@ void Level3Scene::start()
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.90f);
 	addChild(m_pShip);
 
-	m_pScoreLabel = new Label("BOSS HITS LEFT:", "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.04f));
+	m_pScoreLabel = new Label("BOSS HITS LEFT:", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.15f, Config::SCREEN_HEIGHT * 0.04f));
 	m_pScoreLabel->setParent(this);
 	addChild(m_pScoreLabel);
 
-	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.31f, Config::SCREEN_HEIGHT * 0.04f));
+	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.31f, Config::SCREEN_HEIGHT * 0.04f));
 	m_pScore->setParent(this);
 	addChild(m_pScore);
 

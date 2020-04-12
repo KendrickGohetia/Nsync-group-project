@@ -174,11 +174,9 @@ void Level1Scene::checkCollisions()
 	{
 		for (int x = 0; x < m_pEnemy1.size(); x++)
 		{
-			m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy1[x]));
-
-			if (m_pShip->getIsColliding())
+			if (!m_pShip->getIsColliding())
 			{
-				TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+				m_pShip->setIsColliding(CollisionManager::AABBCheck(m_pShip, m_pEnemy1[x]));
 			}
 		}
 	}
@@ -200,18 +198,24 @@ void Level1Scene::checkCollisions()
 					hitScore = hitScore - 1;
 
 					removeChild(m_pScore);
-					m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.34f, Config::SCREEN_HEIGHT * 0.04f));
+					const SDL_Color black = { 0, 0, 0, 255 };
+					m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.34f, Config::SCREEN_HEIGHT * 0.04f));
 					m_pScore->setParent(this);
 					addChild(m_pScore);
 
 					if (hitScore == 0)
 					{
-						std::cout << "HitScore: " << hitScore << std::endl;
+						TheGame::Instance()->changeSceneState(SceneState::WIN_SCENE);
 					}
 					return;
 				}
 			}
 		}
+	}
+
+	if (m_pShip->getIsColliding())
+	{
+		TheGame::Instance()->changeSceneState(SceneState::LOSE_SCENE);
 	}
 }
 
@@ -221,23 +225,8 @@ void Level1Scene::removeEnemy1Element(Enemy1* element)
 	{
 		if (*ritr == element)
 		{
-			/*std::cout << "Enemy list before erase:";
-			for (itrx = m_pEnemy1.begin(); itrx != m_pEnemy1.end(); itrx++)  
-			{
-				std::cout << ' ' << *itrx;
-				std::cout << '\n';
-			}*/
-
 			m_pEnemy1.erase((ritr + 1).base());
 			enemyNum = enemyNum - 1;
-
-			/*std::cout << "Enemy list after erase:";
-			for (itrx = m_pEnemy1.begin(); itrx != m_pEnemy1.end(); itrx++)  
-			{
-				std::cout << ' ' << *itrx;
-				std::cout << '\n';
-				std::cout << "Size: " << m_pEnemy1.size();
-			}*/
 
 			return;
 		}
@@ -250,27 +239,8 @@ void Level1Scene::removeBullet1Element(Bullet1* element)
 	{
 		if (*bulletRitr == element)
 		{
-			/*std::cout << "Bullet1 list before erase:";
-			std::cout << '\n';
-			for (bulletItrx = m_pBullet1.begin(); bulletItrx != m_pBullet1.end(); bulletItrx++)
-			{
-				std::cout << ' ' << *bulletItrx;
-				std::cout << '\n';
-			}*/
-
 			m_pBullet1.erase((bulletRitr + 1).base());
 			bulletNum = bulletNum - 1;
-
-			/*std::cout << "Bullet1 list after erase:";
-			std::cout << '\n';
-			for (bulletItrx = m_pBullet1.begin(); bulletItrx != m_pBullet1.end(); bulletItrx++)
-			{
-				std::cout << ' ' << *bulletItrx;
-				std::cout << '\n';
-			}
-
-			std::cout << "Size: " << m_pBullet1.size();
-			std::cout << '\n';*/
 			return;
 		}
 	}
@@ -281,6 +251,7 @@ void Level1Scene::start()
 {
 	const SDL_Color red = { 255, 0, 0, 255 };
 	const SDL_Color green = { 0, 255, 0, 255 };
+	const SDL_Color black = { 0, 0, 0, 255 };
 
 	m_background1 = Background1();
 
@@ -288,11 +259,11 @@ void Level1Scene::start()
 	m_pShip->setPosition(Config::SCREEN_WIDTH * 0.5, Config::SCREEN_HEIGHT * 0.9);
 	addChild(m_pShip);
 
-	m_pScoreLabel = new Label("ENEMY KILLS LEFT:", "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.16f, Config::SCREEN_HEIGHT * 0.04f));
+	m_pScoreLabel = new Label("ENEMY KILLS LEFT:", "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.16f, Config::SCREEN_HEIGHT * 0.04f));
 	m_pScoreLabel->setParent(this);
 	addChild(m_pScoreLabel);
 
-	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, blue, glm::vec2(Config::SCREEN_WIDTH * 0.34f, Config::SCREEN_HEIGHT * 0.04f));
+	m_pScore = new Label(std::to_string(hitScore), "Consolas", 20, black, glm::vec2(Config::SCREEN_WIDTH * 0.34f, Config::SCREEN_HEIGHT * 0.04f));
 	m_pScore->setParent(this);
 	addChild(m_pScore);
 

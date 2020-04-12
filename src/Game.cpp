@@ -130,6 +130,15 @@ void Game::changeSceneState(const SceneState new_state)
 		// scene clean up
 		if (m_currentSceneState != SceneState::NO_SCENE) 
 		{
+			if ((m_currentSceneState != SceneState::WIN_SCENE) && (m_currentSceneState != SceneState::LOSE_SCENE))
+			{
+				setPrevSceneState(m_currentSceneState);
+			}
+
+			if ((m_currentSceneState == SceneState::WIN_SCENE) || (m_currentSceneState == SceneState::LOSE_SCENE))
+			{
+				setWinState(m_currentSceneState);
+			}
 			m_currentScene->clean();
 			std::cout << "cleaning previous scene" << std::endl;
 			FontManager::Instance()->clean();
@@ -160,6 +169,22 @@ void Game::changeSceneState(const SceneState new_state)
 		case SceneState::LEVEL3_SCENE:
 			m_currentScene = new Level3Scene();
 			std::cout << "Level 3 scene activated" << std::endl;
+			break;
+		case SceneState::INSTRUCTION_SCENE:
+			m_currentScene = new InstructionScene();
+			std::cout << "Instruction scene activated" << std::endl;
+			break;
+		case SceneState::WIN_SCENE:
+			m_currentScene = new WinScene();
+			std::cout << "Win scene activated" << std::endl;
+			break;
+		case SceneState::LOSE_SCENE:
+			m_currentScene = new LoseScene();
+			std::cout << "Lose scene activated" << std::endl;
+			break;
+		case SceneState::GAME_OVER_SCENE:
+			m_currentScene = new GameOverScene();
+			std::cout << "Game Over scene activated" << std::endl;
 			break;
 		case SceneState::PLAY_SCENE:
 			m_currentScene = new PlayScene();
@@ -232,4 +257,29 @@ void Game::handleEvents()
 			break;
 		}
 	}
+}
+
+void Game::setPrevSceneState(SceneState sceneState)
+{
+	m_PrevSceneState = sceneState;
+}
+
+SceneState Game::getPrevSceneState()
+{
+	return m_PrevSceneState;
+}
+
+void Game::setWinState(SceneState sceneState)
+{
+	if (sceneState == SceneState::WIN_SCENE)
+	{
+		m_WinState = true;
+	}
+	else
+		m_WinState = false;
+}
+
+bool Game::getWinState()
+{
+	return m_WinState;
 }

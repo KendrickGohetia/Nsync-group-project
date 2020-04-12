@@ -23,6 +23,10 @@
 #include "Level3Scene.h"
 #include "PlayScene.h"
 #include "EndScene.h"
+#include "InstructionScene.h"
+#include "WinScene.h"
+#include "LoseScene.h"
+#include "GameOverScene.h"
 
 #include "Config.h"
 
@@ -66,6 +70,10 @@ public:
 
 	void changeSceneState(SceneState new_state);
 	void quit();
+	void setPrevSceneState(SceneState sceneState);
+	void setWinState(SceneState sceneState);
+	SceneState getPrevSceneState();
+	bool getWinState();
 
 	
 private:
@@ -79,6 +87,7 @@ private:
 	int m_currentFrame;
 
 	bool m_bRunning;
+	bool m_WinState;
 
 	static Game* s_pInstance;
 	
@@ -90,6 +99,7 @@ private:
 
 	Scene* m_currentScene;
 	SceneState m_currentSceneState;
+	SceneState m_PrevSceneState;
 
 	char currKey;
 };

@@ -15,8 +15,6 @@ void StartScene::draw()
 {
 	m_pStartLabel->draw();
 	m_pInstructionsLabel->draw();
-
-	m_pShip->draw();
 }
 
 void StartScene::update()
@@ -32,9 +30,6 @@ void StartScene::clean()
 	
 	delete m_pInstructionsLabel;
 	m_pInstructionsLabel = nullptr;
-
-	delete m_pShip;
-	m_pShip = nullptr;
 
 	removeAllChildren();
 }
@@ -56,12 +51,10 @@ void StartScene::handleEvents()
 				TheGame::Instance()->quit();
 				break;
 			case SDLK_1:
-				TheGame::Instance()->changeSceneState(SceneState::LEVEL1_SCENE);
-				//TheGame::Instance()->changeSceneState(SceneState::LEVEL2_SCENE);
-				//TheGame::Instance()->changeSceneState(SceneState::LEVEL3_SCENE);
+				TheGame::Instance()->changeSceneState(SceneState::INSTRUCTION_SCENE);
 				break;
 			case SDLK_2:
-				//TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+				//TheGame::Instance()->changeSceneState(SceneState::GAME_OVER_SCENE);
 				break;
 			}
 			break;
@@ -75,18 +68,14 @@ void StartScene::handleEvents()
 void StartScene::start()
 {
 	const SDL_Color blue = { 0, 0, 255, 255 };
-	m_pStartLabel = new Label("START SCENE", "Consolas", 80, blue, glm::vec2(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.20f));
+	const SDL_Color black = { 0, 0, 0, 255 };
+
+	m_pStartLabel = new Label("EARTH DEFENSE", "Dock51", 80, black, glm::vec2(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.20f));
 	m_pStartLabel->setParent(this);
 	addChild(m_pStartLabel);
 
-	m_pInstructionsLabel = new Label("Press 1 to Play", "Consolas", 40, blue, glm::vec2(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.40f));
+	m_pInstructionsLabel = new Label("Press 1 to Play", "Consolas", 40, black, glm::vec2(Config::SCREEN_WIDTH * 0.50f, Config::SCREEN_HEIGHT * 0.40f));
 	m_pInstructionsLabel->setParent(this);
 	addChild(m_pInstructionsLabel);
-
-	m_pShip = new Ship();
-	m_pShip->setPosition(glm::vec2(Config::SCREEN_WIDTH * 0.5f, Config::SCREEN_HEIGHT * 0.95f));
-	addChild(m_pShip);
-
-	
 }
 

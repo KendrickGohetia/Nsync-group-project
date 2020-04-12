@@ -175,10 +175,13 @@
     <ClCompile Include="..\src\FontManager.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
+    <ClCompile Include="..\src\GameOverScene.cpp" />
+    <ClCompile Include="..\src\InstructionScene.cpp" />
     <ClCompile Include="..\src\Label.cpp" />
     <ClCompile Include="..\src\Level1Scene.cpp" />
     <ClCompile Include="..\src\Level2Scene.cpp" />
     <ClCompile Include="..\src\Level3Scene.cpp" />
+    <ClCompile Include="..\src\LoseScene.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Mine.cpp" />
     <ClCompile Include="..\src\PathFindingDisplayObject.cpp" />
@@ -193,6 +196,7 @@
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Tile.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
+    <ClCompile Include="..\src\WinScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\IMGUI\imconfig.h" />
@@ -219,11 +223,14 @@
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\GameObject.h" />
     <ClInclude Include="..\src\GameObjectType.h" />
+    <ClInclude Include="..\src\GameOverScene.h" />
     <ClInclude Include="..\src\Heuristic.h" />
+    <ClInclude Include="..\src\InstructionScene.h" />
     <ClInclude Include="..\src\Label.h" />
     <ClInclude Include="..\src\Level1Scene.h" />
     <ClInclude Include="..\src\Level2Scene.h" />
     <ClInclude Include="..\src\Level3Scene.h" />
+    <ClInclude Include="..\src\LoseScene.h" />
     <ClInclude Include="..\src\Mine.h" />
     <ClInclude Include="..\src\PathFindingDisplayObject.h" />
     <ClInclude Include="..\src\Planet.h" />
@@ -242,6 +249,7 @@
     <ClInclude Include="..\src\TileNeighbour.h" />
     <ClInclude Include="..\src\TileState.h" />
     <ClInclude Include="..\src\Util.h" />
+    <ClInclude Include="..\src\WinScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
